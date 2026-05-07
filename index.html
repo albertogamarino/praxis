@@ -12,19 +12,19 @@
 
   <style>
     :root {
-      --bg: #07090c;
-      --panel: #0d1217;
-      --panel-2: #111820;
-      --panel-3: #151e27;
-      --line: rgba(220, 229, 236, .15);
-      --line-2: rgba(220, 229, 236, .26);
-      --line-3: rgba(220, 229, 236, .38);
-      --text: #f2eee6;
-      --soft: #d5dbe0;
+      --bg: #06080b;
+      --panel: #0c1117;
+      --panel-2: #101720;
+      --panel-3: #151f29;
+      --line: rgba(222, 232, 240, .14);
+      --line-2: rgba(222, 232, 240, .25);
+      --line-3: rgba(222, 232, 240, .38);
+      --text: #f3eee6;
+      --soft: #d8dde1;
       --muted: #aab5bf;
-      --faint: #717d89;
+      --faint: #74808c;
       --accent: #9fe3ea;
-      --accent-dim: rgba(159, 227, 234, .14);
+      --accent-soft: rgba(159, 227, 234, .12);
       --warm: #d4a86f;
       --serif: "Cormorant Garamond", Georgia, serif;
       --sans: "Inter", Arial, sans-serif;
@@ -40,12 +40,12 @@
       font-family: var(--sans);
       line-height: 1.55;
       background:
-        radial-gradient(circle at 72% 0%, rgba(159,227,234,.075), transparent 30rem),
-        radial-gradient(circle at 6% 12%, rgba(212,168,111,.04), transparent 24rem),
+        radial-gradient(circle at 76% -8%, rgba(159,227,234,.075), transparent 31rem),
+        radial-gradient(circle at 4% 14%, rgba(212,168,111,.04), transparent 25rem),
         linear-gradient(rgba(255,255,255,.020) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px),
         var(--bg);
-      background-size: auto, auto, 68px 68px, 68px 68px, auto;
+      background-size: auto, auto, 72px 72px, 72px 72px, auto;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -59,10 +59,10 @@
       min-height: 100vh;
       margin: 0 auto;
       background:
-        linear-gradient(90deg, rgba(255,255,255,.018), transparent 9%, transparent 91%, rgba(255,255,255,.018)),
-        rgba(7,9,12,.76);
-      border-left: 1px solid rgba(220,229,236,.08);
-      border-right: 1px solid rgba(220,229,236,.08);
+        linear-gradient(90deg, rgba(255,255,255,.020), transparent 8%, transparent 92%, rgba(255,255,255,.020)),
+        rgba(6,8,11,.78);
+      border-left: 1px solid rgba(222,232,240,.075);
+      border-right: 1px solid rgba(222,232,240,.075);
     }
 
     .container {
@@ -77,7 +77,7 @@
       top: 0;
       z-index: 50;
       border-bottom: 1px solid var(--line);
-      background: rgba(7,9,12,.84);
+      background: rgba(6,8,11,.86);
       backdrop-filter: blur(18px);
     }
 
@@ -132,7 +132,21 @@
       transition: color var(--ease);
     }
 
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -9px;
+      height: 1px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--ease);
+    }
+
     .nav a:hover { color: var(--text); }
+    .nav a:hover::after { transform: scaleX(1); }
 
     .header-cta { justify-self: end; }
 
@@ -144,7 +158,7 @@
       gap: 9px;
       padding: 0 17px;
       border: 1px solid var(--line-2);
-      background: rgba(13,18,23,.74);
+      background: rgba(12,17,23,.78);
       color: var(--text);
       font-family: var(--mono);
       font-size: 10px;
@@ -156,7 +170,7 @@
 
     .btn:hover {
       border-color: rgba(159,227,234,.54);
-      background: rgba(17,24,32,.94);
+      background: rgba(16,23,32,.94);
       transform: translateY(-1px);
     }
 
@@ -189,20 +203,34 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(90deg, transparent 0 10%, rgba(220,229,236,.08) 10.06%, transparent 10.12%),
-        linear-gradient(90deg, transparent 0 50%, rgba(220,229,236,.065) 50.06%, transparent 50.12%),
-        linear-gradient(90deg, transparent 0 90%, rgba(220,229,236,.08) 90.06%, transparent 90.12%);
+        linear-gradient(90deg, transparent 0 10%, rgba(222,232,240,.08) 10.06%, transparent 10.12%),
+        linear-gradient(90deg, transparent 0 50%, rgba(222,232,240,.060) 50.06%, transparent 50.12%),
+        linear-gradient(90deg, transparent 0 90%, rgba(222,232,240,.08) 90.06%, transparent 90.12%);
       pointer-events: none;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -160px;
+      top: -190px;
+      width: 520px;
+      height: 520px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(159,227,234,.10), transparent 64%);
+      pointer-events: none;
+      filter: blur(2px);
     }
 
     .hero-inner {
       position: relative;
       padding: 72px 28px 48px;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 332px;
+      grid-template-columns: minmax(0, 1fr) 344px;
       gap: 64px;
       align-items: end;
       width: 100%;
+      z-index: 1;
     }
 
     .kicker {
@@ -217,7 +245,7 @@
     }
 
     h1 {
-      max-width: 910px;
+      max-width: 930px;
       font-family: var(--serif);
       font-size: clamp(4.3rem, 7.9vw, 8.6rem);
       font-weight: 400;
@@ -226,10 +254,10 @@
       text-wrap: balance;
     }
 
-    h1 .muted { color: rgba(242,238,230,.62); }
+    h1 .muted { color: rgba(243,238,230,.62); }
 
     .hero-copy {
-      max-width: 710px;
+      max-width: 730px;
       margin-top: 30px;
       color: var(--soft);
       font-size: clamp(1.08rem, 1.32vw, 1.25rem);
@@ -244,7 +272,7 @@
     }
 
     .microcopy {
-      max-width: 620px;
+      max-width: 635px;
       margin-top: 15px;
       color: var(--muted);
       font-size: 14px;
@@ -255,7 +283,7 @@
       border: 1px solid var(--line-2);
       background:
         linear-gradient(180deg, rgba(159,227,234,.045), transparent 38%),
-        rgba(13,18,23,.78);
+        rgba(12,17,23,.82);
       box-shadow: 0 30px 90px rgba(0,0,0,.25);
     }
 
@@ -311,7 +339,7 @@
       min-width: 74px;
       padding: 9px 10px;
       border: 1px solid var(--line-2);
-      background: rgba(7,9,12,.92);
+      background: rgba(6,8,11,.92);
       color: var(--muted);
       font-family: var(--mono);
       font-size: 9px;
@@ -377,7 +405,7 @@
     }
 
     h2 {
-      max-width: 900px;
+      max-width: 920px;
       font-family: var(--serif);
       font-size: clamp(3rem, 5.3vw, 5.75rem);
       font-weight: 400;
@@ -387,7 +415,7 @@
     }
 
     .section-sub {
-      max-width: 745px;
+      max-width: 760px;
       margin-top: 22px;
       color: var(--soft);
       font-size: 18px;
@@ -406,12 +434,12 @@
       padding: 28px;
       border-right: 1px solid var(--line-2);
       border-bottom: 1px solid var(--line-2);
-      background: rgba(13,18,23,.72);
+      background: rgba(12,17,23,.74);
       transition: background var(--ease), transform var(--ease);
     }
 
     .tension:hover {
-      background: rgba(17,24,32,.86);
+      background: rgba(16,23,32,.88);
       transform: translateY(-2px);
     }
 
@@ -454,7 +482,7 @@
       border: 1px solid var(--line-2);
       background:
         radial-gradient(circle at 86% 12%, rgba(159,227,234,.12), transparent 18rem),
-        rgba(13,18,23,.80);
+        rgba(12,17,23,.82);
       padding: 32px;
       display: flex;
       flex-direction: column;
@@ -474,7 +502,7 @@
       color: var(--soft);
       font-size: 17px;
       line-height: 1.68;
-      max-width: 500px;
+      max-width: 520px;
     }
 
     .facts {
@@ -487,7 +515,7 @@
     }
 
     .fact {
-      background: rgba(7,9,12,.86);
+      background: rgba(6,8,11,.86);
       padding: 16px;
     }
 
@@ -516,7 +544,7 @@
 
     .detail {
       border: 1px solid var(--line-2);
-      background: rgba(13,18,23,.74);
+      background: rgba(12,17,23,.76);
       overflow: hidden;
     }
 
@@ -559,11 +587,11 @@
     }
 
     .phase {
-      min-height: 280px;
+      min-height: 296px;
       padding: 28px;
       border-right: 1px solid var(--line-2);
       border-bottom: 1px solid var(--line-2);
-      background: rgba(13,18,23,.72);
+      background: rgba(12,17,23,.74);
       display: flex;
       flex-direction: column;
     }
@@ -571,7 +599,7 @@
     .phase.primary {
       background:
         radial-gradient(circle at 82% 10%, rgba(159,227,234,.11), transparent 16rem),
-        rgba(17,24,32,.82);
+        rgba(16,23,32,.84);
       border-color: rgba(159,227,234,.34);
     }
 
@@ -599,6 +627,32 @@
       line-height: 1.62;
     }
 
+    .agent-note {
+      margin-top: 22px;
+      padding: 22px 24px;
+      border: 1px solid var(--line-2);
+      background: rgba(12,17,23,.72);
+      display: grid;
+      grid-template-columns: 210px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    .agent-note strong {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 10px;
+      line-height: 1.7;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .agent-note p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
     .usecases {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -606,12 +660,18 @@
     }
 
     .case {
-      min-height: 310px;
+      min-height: 330px;
       padding: 26px;
       border: 1px solid var(--line-2);
-      background: rgba(13,18,23,.74);
+      background: rgba(12,17,23,.76);
       display: flex;
       flex-direction: column;
+      transition: background var(--ease), transform var(--ease);
+    }
+
+    .case:hover {
+      background: rgba(16,23,32,.88);
+      transform: translateY(-2px);
     }
 
     .case-label {
@@ -662,7 +722,7 @@
     .workbench-note,
     .deliverables {
       border: 1px solid var(--line-2);
-      background: rgba(13,18,23,.74);
+      background: rgba(12,17,23,.76);
     }
 
     .workbench-note {
@@ -694,11 +754,11 @@
     }
 
     .deliverable {
-      min-height: 154px;
+      min-height: 158px;
       padding: 20px;
       border-right: 1px solid var(--line-2);
       border-bottom: 1px solid var(--line-2);
-      background: rgba(13,18,23,.64);
+      background: rgba(12,17,23,.66);
     }
 
     .deliverable span {
@@ -733,7 +793,7 @@
       border: 1px solid var(--line-2);
       background:
         radial-gradient(circle at 92% 18%, rgba(159,227,234,.10), transparent 24rem),
-        rgba(13,18,23,.80);
+        rgba(12,17,23,.82);
       display: grid;
       grid-template-columns: minmax(0, 1fr) 330px;
       gap: 46px;
@@ -741,7 +801,7 @@
     }
 
     .final p {
-      max-width: 680px;
+      max-width: 690px;
       margin-top: 24px;
       color: var(--soft);
       font-size: 18px;
@@ -753,7 +813,7 @@
       display: grid;
       gap: 18px;
       border: 1px solid var(--line-2);
-      background: rgba(7,9,12,.82);
+      background: rgba(6,8,11,.82);
     }
 
     .contact-box p {
@@ -807,7 +867,8 @@
       .section-top,
       .map-layout,
       .workbench,
-      .final-panel {
+      .final-panel,
+      .agent-note {
         grid-template-columns: 1fr;
       }
 
@@ -836,7 +897,7 @@
       .page {
         border-left: 0;
         border-right: 0;
-        background: rgba(7,9,12,.88);
+        background: rgba(6,8,11,.90);
       }
 
       .container,
@@ -859,7 +920,8 @@
         display: none;
       }
 
-      .hero::before {
+      .hero::before,
+      .hero::after {
         display: none;
       }
 
@@ -1012,7 +1074,7 @@
           <div class="reveal">
             <p class="kicker">For finance, legal, governance and professional service teams.</p>
             <h1>AI is changing the work. <span class="muted">The workflow has not been redesigned.</span></h1>
-            <p class="hero-copy">Praxis helps teams map AI-exposed workflows, redesign roles and controls, and keep judgment, evidence and accountability clear.</p>
+            <p class="hero-copy">Praxis helps teams map AI-exposed workflows, redesign roles and controls, and define the right AI role inside the operating model — from existing tools to dedicated workflow agents when needed.</p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="mailto:alberto@praxis.co?subject=Discuss%20a%20workflow">Discuss a workflow <span class="arrow">→</span></a>
               <a class="btn" href="#map">See the MAP method</a>
@@ -1036,9 +1098,9 @@
             </div>
             <div class="clarifies">
               <span>AI exposure</span>
-              <span>Judgment points</span>
+              <span>AI role</span>
               <span>Control gaps</span>
-              <span>Redesign sequence</span>
+              <span>Agent potential</span>
             </div>
           </aside>
         </div>
@@ -1082,7 +1144,7 @@
             <div class="section-label">02 / Praxis MAP</div>
             <div>
               <h2>Praxis MAP makes the workflow visible.</h2>
-              <p class="section-sub">A focused diagnostic for one to three AI-exposed workflows. MAP identifies how work currently moves, where AI is already entering, where friction accumulates, and where judgment, control and accountability need redesign.</p>
+              <p class="section-sub">A focused diagnostic for one to three AI-exposed workflows. MAP identifies how work currently moves, where AI is already entering, where friction accumulates, and where judgment, control, accountability and AI tooling logic need redesign.</p>
             </div>
           </div>
 
@@ -1090,7 +1152,7 @@
             <article class="map-main">
               <div>
                 <h3>Designed to be bought before a broader transformation.</h3>
-                <p>MAP gives leadership a concrete view of the workflow before committing to redesign, tool rollout or operating model change.</p>
+                <p>MAP gives leadership a concrete view of the workflow before committing to redesign, tool rollout, agent development or operating model change.</p>
               </div>
 
               <div class="facts">
@@ -1104,11 +1166,11 @@
                 </div>
                 <div class="fact">
                   <span>Outputs</span>
-                  <strong>Flow Map, Opportunity Matrix, Control Map, Roadmap</strong>
+                  <strong>Flow Map, AI Exposure Map, Control Map, Roadmap</strong>
                 </div>
                 <div class="fact">
                   <span>Decision</span>
-                  <strong>Where to use AI, what to redesign, which controls must exist</strong>
+                  <strong>Where AI belongs, what to redesign, which controls must exist</strong>
                 </div>
               </div>
             </article>
@@ -1120,13 +1182,18 @@
               </details>
 
               <details class="detail">
+                <summary>What AI role belongs here</summary>
+                <p>MAP does not start from vendor selection. It identifies the capability the workflow needs: drafting, triage, research, monitoring, evidence collection, control checking or escalation support.</p>
+              </details>
+
+              <details class="detail">
                 <summary>Typical workflow examples</summary>
                 <p>Contract review, board pack preparation, management reporting, regulatory monitoring, finance commentary, matter delivery, compliance review and approval flows.</p>
               </details>
 
               <details class="detail">
                 <summary>What happens after MAP</summary>
-                <p>Leadership can decide whether to move into BLUEPRINT, test a redesign, create operating standards, or stop AI adoption in parts of the workflow until controls exist.</p>
+                <p>Leadership can move into BLUEPRINT, test a redesign, create operating standards, configure existing tools, or consider a dedicated workflow agent only where the model requires it.</p>
               </details>
 
               <a class="btn btn-primary" href="mailto:alberto@praxis.co?subject=Discuss%20a%20workflow">Discuss a workflow <span class="arrow">→</span></a>
@@ -1141,7 +1208,7 @@
             <div class="section-label">03 / Sequence</div>
             <div>
               <h2>A sequence, not an open-ended advisory engagement.</h2>
-              <p class="section-sub">MAP is the entry point. BLUEPRINT and EMBED follow only when the workflow evidence is clear enough to redesign or operationalize.</p>
+              <p class="section-sub">MAP is the entry point. BLUEPRINT and EMBED follow only when the workflow evidence is clear enough to redesign, operationalize or support with targeted AI capabilities.</p>
             </div>
           </div>
 
@@ -1149,20 +1216,25 @@
             <article class="phase primary">
               <div class="phase-label">01 / MAP</div>
               <h3>Understand the work AI is entering.</h3>
-              <p>Make the current workflow, exposure, friction and control gaps visible.</p>
+              <p>Make the current workflow, AI exposure, friction, control gaps and candidate AI roles visible.</p>
             </article>
 
             <article class="phase">
               <div class="phase-label">02 / BLUEPRINT</div>
-              <h3>Redesign roles, controls and escalation.</h3>
-              <p>Define who executes, who reviews, who decides, what evidence is required and where tooling belongs.</p>
+              <h3>Redesign roles, controls and AI tooling logic.</h3>
+              <p>Define who executes, who reviews, who decides, what evidence is required, where tooling belongs and whether the AI capability should be bought, configured or built.</p>
             </article>
 
             <article class="phase">
               <div class="phase-label">03 / EMBED</div>
               <h3>Support adoption through operating rituals.</h3>
-              <p>Help the redesigned workflow become governance routines, decision logs, review cadences and working behaviour.</p>
+              <p>Help the redesigned workflow become governance routines, decision logs, review cadences, agent pilots and working behaviour.</p>
             </article>
+          </div>
+
+          <div class="agent-note reveal">
+            <strong>Workflow agents</strong>
+            <p>Agents are not the starting point. They are a possible implementation layer when the Blueprint shows that a dedicated AI capability is required inside a redesigned workflow.</p>
           </div>
         </div>
       </section>
@@ -1185,7 +1257,7 @@
               <div class="case-output">
                 <span>Review architecture</span>
                 <span>Escalation logic</span>
-                <span>Audit trail requirements</span>
+                <span>Possible agent: board pack or review triage</span>
               </div>
             </article>
 
@@ -1196,7 +1268,7 @@
               <div class="case-output">
                 <span>Evidence requirements</span>
                 <span>Approval structure</span>
-                <span>Control redesign</span>
+                <span>Possible agent: commentary or control checklist</span>
               </div>
             </article>
 
@@ -1207,7 +1279,7 @@
               <div class="case-output">
                 <span>Work allocation model</span>
                 <span>Review points</span>
-                <span>AI usage rules</span>
+                <span>Possible agent: intake, research or review support</span>
               </div>
             </article>
           </div>
@@ -1219,8 +1291,8 @@
           <div class="workbench reveal">
             <article class="workbench-note">
               <div class="section-label">05 / Workbench</div>
-              <h3>Supported by an internal workflow intelligence layer.</h3>
-              <p>Praxis Workbench helps structure artefacts, interview notes and workflow evidence during MAP and BLUEPRINT. It is not sold as standalone software today. Its role is to make the method more consistent, not to replace senior judgment.</p>
+              <h3>Workflow intelligence first. Agents only when the workflow requires them.</h3>
+              <p>Praxis Workbench helps structure artefacts, interview notes and workflow evidence during MAP and BLUEPRINT. Where the Blueprint shows that a dedicated AI capability is required, Praxis can design or develop lightweight workflow agents. Workbench is not sold as standalone software today, and agents do not replace senior judgment.</p>
             </article>
 
             <div class="deliverables">
@@ -1231,8 +1303,8 @@
               </article>
               <article class="deliverable">
                 <span>Sample</span>
-                <strong>AI Opportunity Matrix</strong>
-                <p>Where AI can support work and where redesign comes first.</p>
+                <strong>AI Role Matrix</strong>
+                <p>Where AI should draft, triage, monitor, check or stay out.</p>
               </article>
               <article class="deliverable">
                 <span>Sample</span>
@@ -1241,8 +1313,8 @@
               </article>
               <article class="deliverable">
                 <span>Sample</span>
-                <strong>90-day Roadmap</strong>
-                <p>What to redesign, test or govern next.</p>
+                <strong>Agent Pilot Brief</strong>
+                <p>When a dedicated workflow agent is justified by the operating model.</p>
               </article>
             </div>
           </div>
@@ -1255,7 +1327,7 @@
             <div>
               <p class="kicker">Start with the workflow</p>
               <h2>Do not scale AI into a workflow you have not mapped.</h2>
-              <p>Praxis begins with a focused conversation around one workflow, its artefacts, decision points and current AI exposure.</p>
+              <p>Praxis begins with a focused conversation around one workflow, its artefacts, decision points, current AI exposure and the role AI should or should not play inside it.</p>
             </div>
 
             <aside class="contact-box">
