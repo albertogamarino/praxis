@@ -16,13 +16,13 @@
       --panel: #0d1218;
       --panel-2: #111821;
       --panel-3: #151e27;
-      --line: rgba(196, 211, 224, .14);
-      --line-2: rgba(196, 211, 224, .22);
+      --line: rgba(196, 211, 224, .20);
+      --line-2: rgba(196, 211, 224, .30);
       --line-3: rgba(196, 211, 224, .34);
       --text: #f3efe7;
-      --soft: #c7ced3;
-      --muted: #8e9aa6;
-      --faint: #596672;
+      --soft: #D9DEE2;
+      --muted: #B4BEC8;
+      --faint: #85919D;
       --accent: #9fe3ea;
       --accent-2: #e8fbfc;
       --warm: #d7ab72;
@@ -100,7 +100,7 @@
       font-family: var(--serif);
       font-size: 31px;
       font-weight: 500;
-      line-height: .9;
+      line-height: 1;
       letter-spacing: -.02em;
     }
 
@@ -204,43 +204,32 @@
     }
 
     .origin-line {
-      width: fit-content;
-      max-width: 100%;
-      display: inline-flex;
-      align-items: baseline;
-      gap: 12px;
-      margin-bottom: 24px;
-      padding: 9px 11px;
-      border: 1px solid var(--line);
-      background: rgba(13,18,24,.52);
-      color: var(--muted);
-    }
-
-    .origin-line span {
-      color: var(--text);
+      margin-bottom: 20px;
+      color: var(--soft);
       font-family: var(--serif);
-      font-size: 24px;
-      line-height: .8;
+      font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+      font-weight: 400;
+      line-height: 1;
       letter-spacing: -.035em;
     }
 
-    .origin-line em {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      font-style: normal;
-      letter-spacing: .08em;
-      line-height: 1.5;
-      text-transform: uppercase;
+    .origin-line::after {
+      content: "";
+      display: block;
+      width: 46px;
+      height: 1px;
+      margin-top: 16px;
+      background: var(--accent);
+      opacity: .65;
     }
 
     h1 {
       max-width: 900px;
       font-family: var(--serif);
-      font-size: clamp(4.8rem, 9vw, 9.7rem);
+      font-size: clamp(4.1rem, 7.2vw, 7.8rem);
       font-weight: 400;
-      line-height: .84;
-      letter-spacing: -.065em;
+      line-height: 1;
+      letter-spacing: -.05em;
       text-wrap: balance;
     }
 
@@ -288,7 +277,7 @@
       padding: 20px;
       min-height: 96px;
       border-bottom: 1px solid var(--line);
-      background: rgba(7,9,13,.34);
+      background: rgba(9,13,18,.62);
       transition: background var(--ease), border-color var(--ease);
     }
 
@@ -350,9 +339,9 @@
     .statement-text {
       max-width: 1010px;
       font-family: var(--serif);
-      font-size: clamp(2.65rem, 5vw, 5.65rem);
-      line-height: .96;
-      letter-spacing: -.052em;
+      font-size: clamp(2.55rem, 4.4vw, 4.9rem);
+      line-height: 1;
+      letter-spacing: -.045em;
       text-wrap: balance;
     }
 
@@ -361,10 +350,10 @@
     h2 {
       max-width: 930px;
       font-family: var(--serif);
-      font-size: clamp(3.15rem, 5.8vw, 6.55rem);
+      font-size: clamp(2.9rem, 5vw, 5.6rem);
       font-weight: 400;
-      line-height: .88;
-      letter-spacing: -.062em;
+      line-height: 1;
+      letter-spacing: -.048em;
       text-wrap: balance;
     }
 
@@ -372,8 +361,8 @@
       max-width: 730px;
       margin-top: 25px;
       color: var(--soft);
-      font-size: 18px;
-      line-height: 1.58;
+      font-size: 19px;
+      line-height: 1.68;
     }
 
     .architecture {
@@ -477,7 +466,7 @@
     .contrast-card h3 {
       font-family: var(--serif);
       font-weight: 400;
-      line-height: .9;
+      line-height: 1;
       letter-spacing: -.05em;
       text-wrap: balance;
     }
@@ -486,8 +475,8 @@
     .model-card p {
       max-width: 300px;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.62;
+      font-size: 16px;
+      line-height: 1.68;
     }
 
     .stack {
@@ -588,7 +577,7 @@
       font-size: clamp(2.65rem, 3.8vw, 4.05rem);
       font-weight: 400;
       line-height: .86;
-      letter-spacing: -.052em;
+      letter-spacing: -.045em;
     }
 
     .primary-pillar h3 { color: var(--accent-2); }
@@ -596,8 +585,8 @@
     .pillar p {
       max-width: 315px;
       color: var(--muted);
-      font-size: 15px;
-      line-height: 1.62;
+      font-size: 16px;
+      line-height: 1.68;
     }
 
     .outputs {
@@ -677,7 +666,7 @@
       padding: 24px;
       border-right: 1px solid var(--line-2);
       border-bottom: 1px solid var(--line-2);
-      background: rgba(13,18,24,.56);
+      background: rgba(13,18,24,.74);
       transition: background var(--ease), transform var(--ease);
     }
 
@@ -703,8 +692,8 @@
 
     .tool-item p {
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
+      font-size: 15px;
+      line-height: 1.62;
     }
 
     .audience,
@@ -804,8 +793,8 @@
     .contact-box p {
       margin: 0;
       color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
+      font-size: 15px;
+      line-height: 1.62;
     }
 
     .email {
@@ -961,8 +950,8 @@
 
       .hero-inner {
         display: block;
-        padding-top: 54px;
-        padding-bottom: 34px;
+        padding-top: 44px;
+        padding-bottom: 32px;
       }
 
       .kicker {
@@ -972,32 +961,25 @@
       }
 
       .origin-line {
-        display: grid;
-        gap: 5px;
-        margin-bottom: 22px;
-        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 1.65rem;
       }
 
-      .origin-line span {
-        font-size: 25px;
-      }
-
-      .origin-line em {
-        font-size: 9px;
-        line-height: 1.55;
+      .origin-line::after {
+        margin-top: 14px;
       }
 
       h1 {
         max-width: 100%;
-        font-size: clamp(3.25rem, 16.5vw, 4.65rem);
-        line-height: .9;
-        letter-spacing: -.055em;
+        font-size: clamp(2.85rem, 13.5vw, 3.75rem);
+        line-height: 1;
+        letter-spacing: -.038em;
       }
 
       .hero-copy {
         margin-top: 24px;
-        font-size: 16.5px;
-        line-height: 1.6;
+        font-size: 17px;
+        line-height: 1.72;
       }
 
       .hero-actions {
@@ -1041,21 +1023,21 @@
       }
 
       .statement-text {
-        font-size: clamp(2.55rem, 12.2vw, 3.85rem);
+        font-size: clamp(2.35rem, 10.5vw, 3.25rem);
         line-height: 1;
         letter-spacing: -.047em;
       }
 
       h2 {
-        font-size: clamp(2.75rem, 13vw, 4.35rem);
-        line-height: .94;
-        letter-spacing: -.052em;
+        font-size: clamp(2.35rem, 10.8vw, 3.55rem);
+        line-height: 1;
+        letter-spacing: -.045em;
       }
 
       .section-sub {
         margin-top: 22px;
-        font-size: 16.5px;
-        line-height: 1.6;
+        font-size: 17px;
+        line-height: 1.72;
       }
 
       .diagram {
@@ -1192,13 +1174,10 @@
       <section class="hero">
         <div class="container hero-inner">
           <div class="reveal">
-            <div class="origin-line">
-              <span>πράξις</span>
-              <em>the transformation of knowledge into operating reality</em>
-            </div>
-            <p class="kicker">For finance, legal and professional service teams adopting AI inside workflows that were never designed for it.</p>
+            <p class="origin-line">Knowledge made operational.</p>
+            <p class="kicker">For finance, legal, governance and professional service teams adopting AI inside workflows that were never designed for it.</p>
             <h1>AI enters the work. <span class="muted">Praxis redesigns the operating model.</span></h1>
-            <p class="hero-copy">Praxis maps how professional work actually moves, then turns that evidence into operating architecture for AI execution, human judgment and governed control.</p>
+            <p class="hero-copy">Praxis redesigns high-trust workflows across finance, legal, governance and professional services. Senior operating model advisory, supported by AI-assisted workflow intelligence.</p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="mailto:alberto@praxis.co?subject=PRAXIS%20MAP">Start with MAP <span class="arrow">→</span></a>
               <a class="btn" href="#model">View model</a>
@@ -1272,7 +1251,7 @@
               <div class="stack">
                 <div class="stack-row">
                   <strong>Input</strong>
-                  <span>Workflows, artefacts, systems and informal AI use.</span>
+                  <span>Workflows, artefacts, systems, board materials and informal AI use.</span>
                 </div>
                 <div class="stack-row">
                   <strong>Analysis</strong>
@@ -1340,25 +1319,25 @@
           <div class="section-top reveal">
             <div class="section-label">03 / Engine</div>
             <div>
-              <h2>Advisory first. Tool-supported by design.</h2>
-              <p class="section-sub">Praxis is advisory-first and vendor-independent. Its internal AI-assisted tooling layer makes mapping and redesign more scalable, consistent and defensible.</p>
+              <h2>Advisory judgment. AI-assisted workflow intelligence.</h2>
+              <p class="section-sub">Praxis combines senior operating model design with an internal AI-assisted analysis layer used to parse artefacts, extract work units, identify friction and support blueprint design.</p>
             </div>
           </div>
 
           <div class="tooling reveal">
             <article class="tool-lead scan-card">
               <div>
-                <h3>Praxis Engine</h3>
-                <p>An internal tooling layer for workflow analysis: parsing artefacts, extracting work units, identifying friction, generating draft matrices and supporting Blueprint design.</p>
+                <h3>Praxis Atlas</h3>
+                <p>An internal workflow intelligence layer for mapping and redesign: parsing artefacts, extracting work units, identifying friction, generating draft matrices and supporting Blueprint design.</p>
               </div>
-              <div class="tool-signature">Internal layer / vendor-independent / evidence-led</div>
+              <div class="tool-signature">Workflow intelligence / vendor-independent / evidence-led</div>
             </article>
 
             <div class="tool-grid table-row-reveal">
               <article class="tool-item">
                 <div class="tag">01 / Intake</div>
                 <h4>Artefact parsing</h4>
-                <p>Policies, templates, process notes, matter files, reporting packs and operating documents.</p>
+                <p>Policies, templates, process notes, board packs, matter files, reporting packs and operating documents.</p>
               </article>
               <article class="tool-item">
                 <div class="tag">02 / Mapping</div>
@@ -1386,15 +1365,15 @@
             <div class="section-label">04 / Audience</div>
             <div>
               <h2>Built for high-trust professional work.</h2>
-              <p class="section-sub">Praxis focuses on finance, legal, tax, compliance and professional services because these workflows combine structured cognitive work, professional judgment and governance risk.</p>
+              <p class="section-sub">Praxis focuses on finance, legal, governance, corporate affairs and professional services because these workflows combine structured cognitive work, institutional judgment and governance risk.</p>
             </div>
           </div>
 
           <div class="audience reveal table-row-reveal">
             <article class="audience-card">
               <h3>Corporate Functions</h3>
-              <p>For finance, legal, tax, compliance, risk and operations teams where AI is entering reporting, contracts, monitoring, analysis and review workflows.</p>
-              <div class="sponsors">CFO / General Counsel / COO / Head of Finance / Head of Legal</div>
+              <p>For finance, legal, tax, compliance, corporate affairs, governance and operations teams where AI is entering reporting, contracts, board materials, monitoring, analysis and review workflows.</p>
+              <div class="sponsors">CFO / General Counsel / COO / Head of Governance / Head of Corporate Affairs</div>
             </article>
 
             <article class="audience-card">
@@ -1433,7 +1412,7 @@
                 <span>Workflow evidence turned into operating architecture</span>
                 <span>AI-assisted mapping and redesign where useful</span>
                 <span>Vendor-independent tooling logic</span>
-                <span>A future platform layer built from real workflow data</span>
+                <span>A future Atlas layer built from real workflow data</span>
               </div>
             </article>
           </div>
@@ -1451,7 +1430,7 @@
 
             <aside class="contact-box">
               <a class="btn btn-primary" href="mailto:alberto@praxis.co?subject=PRAXIS%20MAP">Start with MAP <span class="arrow">→</span></a>
-              <p>For CFOs, General Counsel, COOs, Managing Partners and functional leaders dealing with AI inside high-trust workflows.</p>
+              <p>For CFOs, General Counsel, COOs, Heads of Governance, Corporate Affairs leaders, Managing Partners and functional leaders dealing with AI inside high-trust workflows.</p>
               <a class="email" href="mailto:alberto@praxis.co">alberto@praxis.co</a>
             </aside>
           </div>
@@ -1472,14 +1451,13 @@
     const items = document.querySelectorAll('.reveal, .scan-card, .table-row-reveal');
 
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.style.transitionDelay = `${Math.min(index * 40, 160)}ms`;
           entry.target.classList.add('show');
           observer.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -4% 0px' });
 
     items.forEach(item => {
       if (reduceMotion) {
