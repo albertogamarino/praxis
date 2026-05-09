@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PRAXIS — AI-Exposed Workflow Redesign</title>
 <meta name="description" content="PRAXIS maps AI-exposed workflows, redesigns roles and controls, and defines the right AI role inside the operating model.">
+<meta name="theme-color" content="#06070D">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -50,7 +51,7 @@ body::before {
   background-size: 80px 80px;
 }
 
-nav, section, footer, .s-bar, .stack-section, .pull-line { position: relative; z-index: 1; }
+nav, section, footer, .s-bar, .stack-section { position: relative; z-index: 1; }
 
 /* NAV */
 nav {
@@ -251,29 +252,6 @@ nav.scrolled {
   stroke: rgba(255,100,100,.55);
   stroke-dasharray: 3 7;
 }
-.flow-node {
-  position: absolute;
-  z-index: 1;
-  min-width: 58px;
-  text-align: center;
-  padding: 8px 9px;
-  border: 1px solid var(--line-mid);
-  background: rgba(7,8,15,.92);
-  color: var(--text-mid);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  letter-spacing: .08em;
-}
-.flow-node.ai {
-  color: #050711;
-  background: var(--acc);
-  border-color: var(--acc);
-}
-.flow-node.n1 { left: 22px; top: 30px; }
-.flow-node.n2 { left: 96px; top: 60px; }
-.flow-node.n3 { left: 50%; top: 22px; transform: translateX(-50%); min-width: 44px; }
-.flow-node.n4 { right: 76px; top: 30px; }
-.flow-node.n5 { right: 18px; top: 60px; }
 .mini-output-grid {
   margin: auto 28px 28px;
   display: grid;
@@ -327,8 +305,6 @@ nav.scrolled {
 
 .hp-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--acc); }
 .hp-name { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; color: var(--white); letter-spacing: -0.01em; }
-.hp-desc { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); line-height: 1.65; letter-spacing: 0.02em; }
-
 /* STRUCTURAL SHIFT */
 .signals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 52px; border-top: 1px solid var(--line); }
 .signal-card { padding: 36px 30px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; transition: background 0.2s; cursor: default; min-height: 210px; }
@@ -353,7 +329,6 @@ nav.scrolled {
 }
 .stack-axis:first-child { border-right: 1px solid var(--line); }
 .stack-axis-arrow { color: var(--acc); font-size: 13px; }
-.stack-intro { padding: 52px 80px 0; display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start; }
 .stack-bands { margin-top: 44px; }
 .stack-band {
   display: grid; grid-template-columns: 80px 1fr 190px;
@@ -461,7 +436,7 @@ nav.scrolled {
   grid-template-columns: repeat(4, 1fr);
 }
 .deliverable-card {
-  min-height: 190px;
+  min-height: 210px;
   border-right: 1px solid var(--line);
   padding: 18px;
   background: rgba(7,8,15,.38);
@@ -491,90 +466,277 @@ nav.scrolled {
   line-height: 1.2;
   font-weight: 500;
 }
-.mock-flow, .mock-matrix, .mock-controls, .mock-roadmap {
-  min-height: 104px;
+.mock-flow, .mock-matrix, .mock-controls, 
+/* EXECUTIVE DELIVERABLE MOCKUPS */
+.mock-flow-exec,
+.exposure-table,
+.control-table,
+.roadmap-exec {
+  min-height: 112px;
+}
+
+.mock-flow-exec {
+  display: block;
+  min-height: 112px;
+}
+
+.lane-labels {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4px;
+}
+
+.lane-labels span {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.lane-grid {
   position: relative;
-}
-.mock-flow {
+  min-height: 112px;
   background:
-    linear-gradient(rgba(255,255,255,.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
-  background-size: 20px 20px;
+    linear-gradient(rgba(255,255,255,.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
-.mock-flow i {
+
+.lane-line {
   position: absolute;
-  left: var(--x);
-  top: var(--y);
-  width: 34px;
-  height: 22px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line);
+}
+
+.lane-line:nth-child(1) { top: 18%; }
+.lane-line:nth-child(2) { top: 50%; }
+.lane-line:nth-child(3) { top: 82%; }
+
+.wf-node {
+  position: absolute;
+  z-index: 2;
+  min-width: 42px;
+  height: 20px;
   display: grid;
   place-items: center;
+  padding: 0 6px;
   border: 1px solid var(--line-mid);
-  background: rgba(7,8,15,.86);
+  background: rgba(7,8,15,.92);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: .06em;
   color: var(--text-mid);
-  font-family: 'JetBrains Mono', monospace;
-  font-style: normal;
-  font-size: 9px;
-  z-index: 1;
+  white-space: nowrap;
 }
-.mock-flow svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.mock-flow path { fill: none; stroke: rgba(110,141,255,.58); stroke-width: 1.1; stroke-dasharray: 4 7; }
-.mock-matrix {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  gap: 5px;
+
+.wf-node.system {
+  background: rgba(110,141,255,.84);
+  border-color: rgba(110,141,255,.96);
+  color: #050711;
 }
-.mock-matrix b {
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,.025);
+
+.wf-node.n1 { left: 2%; top: 8%; }
+.wf-node.n2 { left: 22%; top: 8%; }
+.wf-node.n3 { left: 42%; top: 40%; }
+.wf-node.n4 { left: 64%; top: 72%; border-color: rgba(255,100,100,.38); }
+.wf-node.n5 { right: 2%; top: 72%; }
+
+.lane-grid svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
-.mock-matrix b.on { background: rgba(110,141,255,.18); border-color: rgba(110,141,255,.35); }
-.mock-matrix b.warn { background: rgba(255,100,100,.14); border-color: rgba(255,100,100,.28); }
-.mock-controls {
-  display: grid;
-  gap: 8px;
+
+.lane-grid path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
 }
-.mock-controls p {
+
+.lane-grid path.main {
+  stroke: rgba(110,141,255,.54);
+  stroke-width: 1;
+}
+
+.lane-grid path.gap {
+  stroke: rgba(255,100,100,.58);
+  stroke-width: 1;
+  stroke-dasharray: 3 4;
+}
+
+.legend-row {
+  grid-column: 1 / -1;
   display: flex;
-  gap: 9px;
-  align-items: center;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  color: var(--text-dim);
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 8px;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
 }
-.mock-controls em {
+
+.legend-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  display: inline-block;
+  border-radius: 50%;
+}
+
+.dot.ai { background: rgba(110,141,255,.82); }
+.dot.gap { background: rgba(255,100,100,.70); }
+
+.exposure-table {
+  display: grid;
+  grid-template-columns: 1.25fr repeat(4, 1fr);
+  grid-template-rows: 18px repeat(4, 1fr);
+  gap: 4px;
+}
+
+.mx-head,
+.mx-row {
+  display: grid;
+  place-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.mx-row {
+  justify-content: start;
+  padding-left: 2px;
+}
+
+.mx-row.danger { color: rgba(255,100,100,.70); }
+
+.cell {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.018);
+}
+
+.cell.mid {
+  background: rgba(110,141,255,.08);
+  border-color: rgba(110,141,255,.18);
+}
+
+.cell.on {
+  background: rgba(110,141,255,.18);
+  border-color: rgba(110,141,255,.38);
+}
+
+.cell.warn {
+  background: rgba(255,100,100,.14);
+  border-color: rgba(255,100,100,.35);
+}
+
+.control-table {
+  display: grid;
+  gap: 7px;
+}
+
+.control-row {
+  min-height: 22px;
+  display: grid;
+  grid-template-columns: 1fr 64px;
+  gap: 8px;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 7px;
+}
+
+.control-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text-mid);
+  letter-spacing: .03em;
+}
+
+.control-name em {
   width: 7px;
   height: 7px;
   border: 1px solid var(--acc);
-  display: block;
   transform: rotate(45deg);
   flex: 0 0 7px;
-  margin-top: 1px;
 }
-.mock-roadmap {
+
+.control-name em.done { background: rgba(110,141,255,.58); }
+.control-name em.warn {
+  border-color: rgba(255,100,100,.78);
+  background: rgba(255,100,100,.44);
+}
+
+.control-status {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-align: right;
+}
+
+.control-status.done { color: rgba(110,141,255,.82); }
+.control-status.warn { color: rgba(255,100,100,.78); }
+
+.roadmap-exec {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 7px;
   align-items: end;
+  gap: 8px;
 }
-.mock-roadmap div {
+
+.road-col {
   border: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(110,141,255,.10), rgba(255,255,255,.015));
+  background: linear-gradient(180deg, rgba(110,141,255,.11), rgba(255,255,255,.014));
+  padding: 9px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
   position: relative;
 }
-.mock-roadmap .r1 { height: 58%; }
-.mock-roadmap .r2 { height: 88%; }
-.mock-roadmap .r3 { height: 72%; }
-.mock-roadmap span {
-  position: absolute;
-  left: 8px;
-  bottom: 8px;
+
+.road-col.r1 { height: 66%; }
+.road-col.r2 { height: 94%; }
+.road-col.r3 { height: 78%; }
+
+.road-col .range {
   font-family: 'JetBrains Mono', monospace;
-  font-size: 9px;
-  color: var(--text-dim);
+  font-size: 7.5px;
+  color: var(--acc);
+  letter-spacing: .08em;
+}
+
+.road-col strong {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px;
+  line-height: 1.25;
+  color: var(--text-mid);
+  font-weight: 400;
+  letter-spacing: .02em;
+}
+
+.road-col i {
+  width: 100%;
+  height: 1px;
+  background: rgba(110,141,255,.35);
+  display: block;
 }
 
 /* USE CASES */
@@ -634,8 +796,6 @@ nav.scrolled {
 .cta-block:last-child { border-bottom: none; }
 .cta-step { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 40px; line-height: .82; color: var(--acc); opacity: .58; }
 .cta-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mid); }
-.cta-text { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.82; }
-
 /* FOOTER */
 footer {
   padding: 0;
@@ -734,10 +894,21 @@ footer {
 .mock-tl-range { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; color: var(--text-dim); letter-spacing: 0.08em; margin-bottom: 3px; }
 .mock-tl-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--acc); letter-spacing: 0.06em; font-weight: 500; }
 
+/* TICKER */
+.ticker { height: 40px; border-bottom: 1px solid var(--line); background: var(--bg-1); overflow: hidden; display: flex; align-items: center; position: relative; z-index: 1; }
+.ticker::before, .ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none; }
+.ticker::before { left: 0; background: linear-gradient(90deg, var(--bg-1), transparent); }
+.ticker::after  { right: 0; background: linear-gradient(-90deg, var(--bg-1), transparent); }
+.ticker-track { display: flex; align-items: center; animation: ticker-scroll 40s linear infinite; white-space: nowrap; }
+.t-item { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); padding: 0 22px; white-space: nowrap; }
+.t-item.a { color: var(--acc); }
+.t-item.s { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 13px; letter-spacing: 0; color: var(--acc); text-transform: none; }
+.t-sep { color: var(--text-dim); padding: 0 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
+@keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
 /* RESPONSIVE */
 @media (max-width: 1100px) {
   .col-2 { grid-template-columns: 1fr; gap: 40px; }
-  .stack-intro { grid-template-columns: 1fr; gap: 32px; }
   .method-grid { grid-template-columns: 1fr; }
   .stack-band { grid-template-columns: 60px 1fr; padding: 0 40px; }
   .sb-right { display: none; }
@@ -762,15 +933,14 @@ footer {
 @media (max-width: 600px) {
   nav { padding: 0 24px; }
   .nav-links { display: none; }
-  .nav-cta { font-size: 10px; padding: 8px 14px; margin-left: 10px; }
+  .nav-cta { font-size: 0; padding: 8px 14px; margin-left: 10px; }
+  .nav-cta::after { content: 'MAP diagnostic'; font-size: 10px; }
   .hero-left { padding: 52px 24px 44px; }
   .display-xl { font-size: clamp(40px, 10vw, 60px); }
   .display-md { font-size: clamp(22px, 5.5vw, 30px); }
   .wrap { padding: 64px 24px; }
   .hero-right { display: flex; }
-  .hero-phase-row { grid-template-columns: 1fr; }
-  .hero-phase { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
-  .hero-phase:last-child { border-bottom: none !important; }
+  .hero-phase-row { display: none; }
   .mc-head, .mc-body, .mc-foot { padding-left: 24px; padding-right: 24px; }
   .use-card, .who-card { padding: 32px 24px; }
   .buyers { padding-left: 24px; padding-right: 24px; }
@@ -792,9 +962,17 @@ footer {
   .stack-axes { grid-template-columns: 1fr; }
   .stack-axis:first-child { border-right: none; border-bottom: 1px solid var(--line); }
   .stack-axes .stack-axis { padding: 14px 24px; font-size: 9px; }
-  .stack-intro { padding: 40px 24px 0; }
   .agent-note { grid-template-columns: 1fr; gap: 14px; padding: 20px 24px; }
 }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .fade { opacity: 1 !important; transform: none !important; }
+}
+
 </style>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
@@ -803,7 +981,7 @@ footer {
 
 <nav id="nav">
   <a href="#top" class="nav-brand"><span class="brand-mark" aria-hidden="true">
-  <svg viewBox="0 0 32 32" role="img" aria-label="PRAXIS mark">
+  <svg viewBox="0 0 32 32">
     <path d="M7.2 9.4H24.8" class="mark-line"/>
     <path d="M11.1 9.4L10.2 24.2" class="mark-stem"/>
     <path d="M20.9 9.4L21.8 24.2" class="mark-stem"/>
@@ -919,6 +1097,33 @@ footer {
   </div>
 </section>
 
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="t-item a">PRAXIS MAP</span><span class="t-sep">—</span>
+    <span class="t-item">Workflow Mapping</span><span class="t-sep">—</span>
+    <span class="t-item a">PRAXIS BLUEPRINT</span><span class="t-sep">—</span>
+    <span class="t-item">Orchestration Design</span><span class="t-sep">—</span>
+    <span class="t-item a">PRAXIS EMBED</span><span class="t-sep">—</span>
+    <span class="t-item">Adoption Support</span><span class="t-sep">—</span>
+    <span class="t-item">Finance</span><span class="t-sep">·</span>
+    <span class="t-item">Legal</span><span class="t-sep">·</span>
+    <span class="t-item">Compliance</span><span class="t-sep">·</span>
+    <span class="t-item">Governance</span><span class="t-sep">—</span>
+    <span class="t-item s">πράξις</span><span class="t-sep">—</span>
+    <span class="t-item a">PRAXIS MAP</span><span class="t-sep">—</span>
+    <span class="t-item">Workflow Mapping</span><span class="t-sep">—</span>
+    <span class="t-item a">PRAXIS BLUEPRINT</span><span class="t-sep">—</span>
+    <span class="t-item">Orchestration Design</span><span class="t-sep">—</span>
+    <span class="t-item a">PRAXIS EMBED</span><span class="t-sep">—</span>
+    <span class="t-item">Adoption Support</span><span class="t-sep">—</span>
+    <span class="t-item">Finance</span><span class="t-sep">·</span>
+    <span class="t-item">Legal</span><span class="t-sep">·</span>
+    <span class="t-item">Compliance</span><span class="t-sep">·</span>
+    <span class="t-item">Governance</span><span class="t-sep">—</span>
+    <span class="t-item s">πράξις</span><span class="t-sep">—</span>
+  </div>
+</div>
+
 <div class="s-bar" id="shift">
   <span class="s-bar-num">01</span>
   <span class="s-bar-title">The Structural Shift</span>
@@ -1032,7 +1237,7 @@ footer {
       </div>
       <div class="mc-foot">
         <span class="mc-note">2–4 weeks · 1–3 workflows</span>
-        <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="mc-link">Discuss →</a>
+        <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="mc-link">Request →</a>
       </div>
     </div>
 
@@ -1090,72 +1295,127 @@ footer {
     <div class="deliverable-grid">
       <article class="deliverable-card">
         <div class="dc-top"><span>01</span><strong>As-is Flow Map</strong></div>
-        <div class="mock-flow">
-          <svg viewBox="0 0 190 76" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="mock-flow-exec">
+          <svg viewBox="0 0 280 125" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
-              <marker id="m-arr" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(110,141,255,0.55)"/></marker>
-              <marker id="m-warn" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(255,100,100,0.65)"/></marker>
+              <marker id="sl-arr" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(110,141,255,0.55)"/></marker>
+              <marker id="sl-warn" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(255,100,100,0.65)"/></marker>
+              <pattern id="sl-grid" width="18" height="18" patternUnits="userSpaceOnUse">
+                <path d="M 18 0 L 0 0 0 18" fill="none" stroke="rgba(255,255,255,0.018)" stroke-width="0.5"/>
+              </pattern>
             </defs>
-            <line x1="38" y1="36" x2="46" y2="36" stroke="rgba(110,141,255,.5)" stroke-width="1" marker-end="url(#m-arr)"/>
-            <line x1="88" y1="36" x2="96" y2="36" stroke="rgba(255,100,100,.65)" stroke-width="1" stroke-dasharray="2.5 2.5" marker-end="url(#m-warn)"/>
-            <line x1="138" y1="36" x2="146" y2="36" stroke="rgba(110,141,255,.5)" stroke-width="1" marker-end="url(#m-arr)"/>
-            <rect x="2" y="26" width="36" height="20" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
-            <text x="20" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(150,156,175,.8)" letter-spacing=".05em">INT</text>
-            <rect x="52" y="26" width="36" height="20" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
-            <text x="70" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(150,156,175,.8)" letter-spacing=".05em">DRAFT</text>
-            <rect x="102" y="26" width="36" height="20" fill="rgba(110,141,255,.88)" stroke="rgba(110,141,255,.95)" stroke-width=".75"/>
-            <text x="120" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(5,7,17,.95)" letter-spacing=".08em">AI</text>
-            <rect x="152" y="26" width="36" height="20" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
-            <text x="170" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="rgba(150,156,175,.8)" letter-spacing=".04em">REVIEW</text>
-            <text x="92" y="64" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(255,100,100,.50)" letter-spacing=".06em">unverified</text>
+            <!-- Grid background -->
+            <rect x="36" y="0" width="244" height="105" fill="url(#sl-grid)"/>
+            <!-- Lane dividers -->
+            <line x1="36" y1="38" x2="280" y2="38" stroke="rgba(255,255,255,0.055)" stroke-width="0.75"/>
+            <line x1="36" y1="76" x2="280" y2="76" stroke="rgba(255,255,255,0.055)" stroke-width="0.75"/>
+            <!-- Lane labels -->
+            <text x="34" y="22" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(74,80,107,.9)" letter-spacing=".08em">OWNER</text>
+            <text x="34" y="60" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(74,80,107,.9)" letter-spacing=".08em">SYSTEM</text>
+            <text x="34" y="98" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(74,80,107,.9)" letter-spacing=".08em">REVIEWER</text>
+            <!-- Connections -->
+            <line x1="78" y1="19" x2="85" y2="19" stroke="rgba(110,141,255,.5)" stroke-width="1" marker-end="url(#sl-arr)"/>
+            <path d="M125,19 C131,19 132,57 140,57" fill="none" stroke="rgba(110,141,255,.5)" stroke-width="1" marker-end="url(#sl-arr)"/>
+            <path d="M172,57 C178,57 179,95 187,95" fill="none" stroke="rgba(255,100,100,.6)" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#sl-warn)"/>
+            <line x1="219" y1="95" x2="226" y2="95" stroke="rgba(110,141,255,.5)" stroke-width="1" marker-end="url(#sl-arr)"/>
+            <!-- INTAKE -->
+            <rect x="46" y="10" width="32" height="18" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
+            <text x="62" y="22" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="rgba(150,156,175,.8)" letter-spacing=".05em">INTAKE</text>
+            <!-- DRAFT -->
+            <rect x="93" y="10" width="32" height="18" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
+            <text x="109" y="22" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="rgba(150,156,175,.8)" letter-spacing=".05em">DRAFT</text>
+            <!-- AI ASSIST (System lane) -->
+            <rect x="140" y="48" width="32" height="18" fill="rgba(110,141,255,.85)" stroke="rgba(110,141,255,.95)" stroke-width=".75"/>
+            <text x="156" y="60" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="rgba(5,7,17,.95)" letter-spacing=".04em">AI ASSIST</text>
+            <!-- REVIEW (Reviewer lane, warn) -->
+            <rect x="187" y="86" width="32" height="18" fill="rgba(7,8,15,.90)" stroke="rgba(255,100,100,.38)" stroke-width=".75"/>
+            <text x="203" y="98" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="rgba(150,156,175,.8)" letter-spacing=".05em">REVIEW</text>
+            <!-- SIGN-OFF (Reviewer lane) -->
+            <rect x="234" y="86" width="40" height="18" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
+            <text x="254" y="98" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6" fill="rgba(150,156,175,.8)" letter-spacing=".04em">SIGN-OFF</text>
+            <!-- Legend -->
+            <circle cx="188" cy="115" r="3.5" fill="rgba(110,141,255,.78)"/>
+            <text x="194" y="118" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(74,80,107,.9)" letter-spacing=".04em">AI step</text>
+            <circle cx="230" cy="115" r="3.5" fill="rgba(255,100,100,.68)"/>
+            <text x="236" y="118" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(74,80,107,.9)" letter-spacing=".04em">Control gap</text>
           </svg>
         </div>
       </article>
+
       <article class="deliverable-card">
         <div class="dc-top"><span>02</span><strong>AI Exposure Map</strong></div>
-        <div class="mock-matrix-wrap">
-          <div class="mock-axis-x">Workflow Steps →</div>
-          <div class="mock-matrix">
-            <b></b><b class="on"></b><b class="on"></b><b></b><b></b>
-            <b></b><b></b><b class="on"></b><b class="on"></b><b></b>
-            <b></b><b></b><b class="warn"></b><b class="warn"></b><b class="warn"></b>
-            <b class="on"></b><b class="on"></b><b></b><b></b><b></b>
-          </div>
-          <div class="mock-axis-y">Criteria ↓</div>
+        <div class="exposure-table">
+          <div class="mx-head"></div>
+          <div class="mx-head">Value</div>
+          <div class="mx-head">Risk</div>
+          <div class="mx-head">Evidence</div>
+          <div class="mx-head">Control</div>
+
+          <div class="mx-row">Draft</div>
+          <div class="cell on"></div>
+          <div class="cell"></div>
+          <div class="cell mid"></div>
+          <div class="cell"></div>
+
+          <div class="mx-row">Research</div>
+          <div class="cell on"></div>
+          <div class="cell mid"></div>
+          <div class="cell on"></div>
+          <div class="cell"></div>
+
+          <div class="mx-row danger">Review</div>
+          <div class="cell mid"></div>
+          <div class="cell warn"></div>
+          <div class="cell warn"></div>
+          <div class="cell warn"></div>
+
+          <div class="mx-row">Approval</div>
+          <div class="cell"></div>
+          <div class="cell mid"></div>
+          <div class="cell on"></div>
+          <div class="cell on"></div>
         </div>
       </article>
+
       <article class="deliverable-card">
         <div class="dc-top"><span>03</span><strong>Judgment & Control Map</strong></div>
-        <div class="mock-controls">
-          <p><em></em> Human review required</p>
-          <p><em class="done"></em> Evidence filed</p>
-          <p><em class="warn"></em> Escalation triggered</p>
-          <p><em></em> Audit log entry</p>
+        <div class="control-table">
+          <div class="control-row">
+            <span class="control-name"><em class="required"></em>Human review</span>
+            <span class="control-status required">Required</span>
+          </div>
+          <div class="control-row">
+            <span class="control-name"><em class="done"></em>Evidence pack</span>
+            <span class="control-status done">Filed</span>
+          </div>
+          <div class="control-row">
+            <span class="control-name"><em class="warn"></em>Escalation rule</span>
+            <span class="control-status warn">Missing</span>
+          </div>
+          <div class="control-row">
+            <span class="control-name"><em class="required"></em>Audit log</span>
+            <span class="control-status required">Owner</span>
+          </div>
         </div>
       </article>
+
       <article class="deliverable-card">
         <div class="dc-top"><span>04</span><strong>90-day Roadmap</strong></div>
-        <div class="mock-timeline">
-          <div class="mock-tl-track">
-            <div class="mock-tl-node done"></div>
-            <div class="mock-tl-line"></div>
-            <div class="mock-tl-node active"></div>
-            <div class="mock-tl-line"></div>
-            <div class="mock-tl-node"></div>
+        <div class="roadmap-exec">
+          <div class="road-col r1">
+            <span class="range">W1–2</span>
+            <strong>Map controls</strong>
+            <i></i>
           </div>
-          <div class="mock-tl-labels">
-            <div class="mock-tl-phase">
-              <div class="mock-tl-range">W1–2</div>
-              <div class="mock-tl-title">MAP</div>
-            </div>
-            <div class="mock-tl-phase">
-              <div class="mock-tl-range">W3–6</div>
-              <div class="mock-tl-title">BLUEPRINT</div>
-            </div>
-            <div class="mock-tl-phase">
-              <div class="mock-tl-range">W7–10</div>
-              <div class="mock-tl-title">EMBED</div>
-            </div>
+          <div class="road-col r2">
+            <span class="range">W3–6</span>
+            <strong>Redesign review</strong>
+            <i></i>
+          </div>
+          <div class="road-col r3">
+            <span class="range">W7–10</span>
+            <strong>Pilot governance</strong>
+            <i></i>
           </div>
         </div>
       </article>
@@ -1340,7 +1600,7 @@ footer {
     <div class="footer-top">
       <div class="footer-brand">
         <span class="footer-mark" aria-hidden="true">
-          <svg viewBox="0 0 32 32" role="img">
+          <svg viewBox="0 0 32 32">
             <path d="M7.2 9.4H24.8" class="mark-line"/>
             <path d="M11.1 9.4L10.2 24.2" class="mark-stem"/>
             <path d="M20.9 9.4L21.8 24.2" class="mark-stem"/>
