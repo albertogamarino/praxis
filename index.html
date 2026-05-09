@@ -1,1525 +1,1389 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Praxis maps and redesigns AI-exposed workflows in finance, legal, governance and professional services." />
-  <title>Praxis — AI-exposed workflow redesign</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --bg: #06080b;
-      --panel: #0c1117;
-      --panel-2: #101720;
-      --panel-3: #151f29;
-      --line: rgba(222, 232, 240, .14);
-      --line-2: rgba(222, 232, 240, .25);
-      --line-3: rgba(222, 232, 240, .38);
-      --text: #f3eee6;
-      --soft: #d8dde1;
-      --muted: #aab5bf;
-      --faint: #74808c;
-      --accent: #9fe3ea;
-      --accent-soft: rgba(159, 227, 234, .12);
-      --warm: #d4a86f;
-      --serif: "Cormorant Garamond", Georgia, serif;
-      --sans: "Inter", Arial, sans-serif;
-      --mono: "IBM Plex Mono", monospace;
-      --container: 1160px;
-      --ease: 220ms cubic-bezier(.2,.8,.2,1);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; background: var(--bg); }
-    body {
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.55;
-      background:
-        radial-gradient(circle at 76% -8%, rgba(159,227,234,.075), transparent 31rem),
-        radial-gradient(circle at 4% 14%, rgba(212,168,111,.04), transparent 25rem),
-        linear-gradient(rgba(255,255,255,.020) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px),
-        var(--bg);
-      background-size: auto, auto, 72px 72px, 72px 72px, auto;
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; color: inherit; }
-    ::selection { background: var(--accent); color: #061014; }
-
-    .page {
-      max-width: 1480px;
-      min-height: 100vh;
-      margin: 0 auto;
-      background:
-        linear-gradient(90deg, rgba(255,255,255,.020), transparent 8%, transparent 92%, rgba(255,255,255,.020)),
-        rgba(6,8,11,.78);
-      border-left: 1px solid rgba(222,232,240,.075);
-      border-right: 1px solid rgba(222,232,240,.075);
-    }
-
-    .container {
-      max-width: var(--container);
-      margin: 0 auto;
-      padding: 0 28px;
-    }
-
-    .header {
-      height: 72px;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      border-bottom: 1px solid var(--line);
-      background: rgba(6,8,11,.86);
-      backdrop-filter: blur(18px);
-    }
-
-    .header-inner {
-      max-width: var(--container);
-      height: 100%;
-      margin: 0 auto;
-      padding: 0 28px;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      gap: 28px;
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: baseline;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .brand-word {
-      font-family: var(--serif);
-      font-size: 32px;
-      line-height: .9;
-      letter-spacing: -.02em;
-      font-weight: 500;
-    }
-
-    .brand-line {
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .nav {
-      display: flex;
-      gap: 22px;
-      align-items: center;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .nav a {
-      position: relative;
-      transition: color var(--ease);
-    }
-
-    .nav a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: -9px;
-      height: 1px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform var(--ease);
-    }
-
-    .nav a:hover { color: var(--text); }
-    .nav a:hover::after { transform: scaleX(1); }
-
-    .header-cta { justify-self: end; }
-
-    .btn {
-      min-height: 42px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      padding: 0 17px;
-      border: 1px solid var(--line-2);
-      background: rgba(12,17,23,.78);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: border-color var(--ease), background var(--ease), transform var(--ease);
-    }
-
-    .btn:hover {
-      border-color: rgba(159,227,234,.54);
-      background: rgba(16,23,32,.94);
-      transform: translateY(-1px);
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #061014;
-      font-weight: 500;
-    }
-
-    .btn-primary:hover {
-      background: #e9fbfd;
-      border-color: #e9fbfd;
-    }
-
-    .arrow { display: inline-block; transition: transform var(--ease); }
-    a:hover .arrow, button:hover .arrow { transform: translateX(3px); }
-
-    .hero {
-      min-height: calc(100vh - 72px);
-      display: grid;
-      align-items: center;
-      border-bottom: 1px solid var(--line);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(90deg, transparent 0 10%, rgba(222,232,240,.08) 10.06%, transparent 10.12%),
-        linear-gradient(90deg, transparent 0 50%, rgba(222,232,240,.060) 50.06%, transparent 50.12%),
-        linear-gradient(90deg, transparent 0 90%, rgba(222,232,240,.08) 90.06%, transparent 90.12%);
-      pointer-events: none;
-    }
-
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -160px;
-      top: -190px;
-      width: 520px;
-      height: 520px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(159,227,234,.10), transparent 64%);
-      pointer-events: none;
-      filter: blur(2px);
-    }
-
-    .hero-inner {
-      position: relative;
-      padding: 72px 28px 48px;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 344px;
-      gap: 64px;
-      align-items: end;
-      width: 100%;
-      z-index: 1;
-    }
-
-    .kicker {
-      max-width: 690px;
-      margin-bottom: 26px;
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 11px;
-      line-height: 1.7;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 930px;
-      font-family: var(--serif);
-      font-size: clamp(4.3rem, 7.9vw, 8.6rem);
-      font-weight: 400;
-      line-height: .88;
-      letter-spacing: -.056em;
-      text-wrap: balance;
-    }
-
-    h1 .muted { color: rgba(243,238,230,.62); }
-
-    .hero-copy {
-      max-width: 730px;
-      margin-top: 30px;
-      color: var(--soft);
-      font-size: clamp(1.08rem, 1.32vw, 1.25rem);
-      line-height: 1.64;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 13px;
-      margin-top: 32px;
-    }
-
-    .microcopy {
-      max-width: 635px;
-      margin-top: 15px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .stack-panel {
-      border: 1px solid var(--line-2);
-      background:
-        linear-gradient(180deg, rgba(159,227,234,.045), transparent 38%),
-        rgba(12,17,23,.82);
-      box-shadow: 0 30px 90px rgba(0,0,0,.25);
-    }
-
-    .panel-head {
-      padding: 18px 20px;
-      border-bottom: 1px solid var(--line);
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .panel-head em {
-      color: var(--accent);
-      font-style: normal;
-    }
-
-    .mini-stack {
-      display: grid;
-      padding: 18px;
-      gap: 10px;
-      background:
-        linear-gradient(rgba(255,255,255,.032) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
-      background-size: 28px 28px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .stack-layer-mini {
-      min-height: 54px;
-      display: grid;
-      grid-template-columns: 36px 1fr;
-      gap: 12px;
-      align-items: center;
-      padding: 12px;
-      border: 1px solid var(--line);
-      background: rgba(6,8,11,.78);
-      transition: border-color var(--ease), background var(--ease), transform var(--ease);
-    }
-
-    .stack-layer-mini:hover {
-      transform: translateY(-1px);
-      border-color: rgba(159,227,234,.45);
-      background: rgba(16,23,32,.86);
-    }
-
-    .stack-layer-mini span {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .1em;
-    }
-
-    .stack-layer-mini strong {
-      color: var(--soft);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    .stack-axis {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--line);
-    }
-
-    .stack-axis div {
-      background: rgba(6,8,11,.84);
-      padding: 14px 16px;
-    }
-
-    .stack-axis span {
-      display: block;
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: 9px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      margin-bottom: 6px;
-    }
-
-    .stack-axis strong {
-      color: var(--soft);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-weight: 500;
-    }
-
-    .section {
-      padding: 92px 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-top {
-      display: grid;
-      grid-template-columns: 200px minmax(0, 1fr);
-      gap: 48px;
-      align-items: start;
-      margin-bottom: 44px;
-    }
-
-    .section-label {
-      padding-top: 12px;
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    h2 {
-      max-width: 920px;
-      font-family: var(--serif);
-      font-size: clamp(3rem, 5.3vw, 5.75rem);
-      font-weight: 400;
-      line-height: .94;
-      letter-spacing: -.05em;
-      text-wrap: balance;
-    }
-
-    .section-sub {
-      max-width: 760px;
-      margin-top: 22px;
-      color: var(--soft);
-      font-size: 18px;
-      line-height: 1.68;
-    }
-
-    .signal-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-left: 1px solid var(--line-2);
-      border-top: 1px solid var(--line-2);
-    }
-
-    .signal {
-      min-height: 258px;
-      padding: 28px;
-      border-right: 1px solid var(--line-2);
-      border-bottom: 1px solid var(--line-2);
-      background: rgba(12,17,23,.74);
-      transition: background var(--ease), transform var(--ease);
-    }
-
-    .signal:hover {
-      background: rgba(16,23,32,.88);
-      transform: translateY(-2px);
-    }
-
-    .signal-num {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-bottom: 34px;
-    }
-
-    .signal h3 {
-      font-family: var(--serif);
-      font-size: clamp(2.3rem, 3.4vw, 3.65rem);
-      line-height: .92;
-      letter-spacing: -.045em;
-      font-weight: 400;
-      margin-bottom: 18px;
-    }
-
-    .signal p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.62;
-    }
-
-    .workflow-stack {
-      display: grid;
-      grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .stack-intro {
-      padding: 30px;
-      border: 1px solid var(--line-2);
-      background:
-        radial-gradient(circle at 88% 10%, rgba(159,227,234,.11), transparent 18rem),
-        rgba(12,17,23,.80);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .stack-intro h3 {
-      font-family: var(--serif);
-      font-size: clamp(2.65rem, 4.1vw, 4.55rem);
-      line-height: .94;
-      letter-spacing: -.048em;
-      font-weight: 400;
-      margin-bottom: 22px;
-    }
-
-    .stack-intro p {
-      color: var(--soft);
-      font-size: 17px;
-      line-height: 1.68;
-      max-width: 500px;
-    }
-
-    .stack-visual {
-      display: grid;
-      border-top: 1px solid var(--line-2);
-      border-left: 1px solid var(--line-2);
-    }
-
-    .stack-row {
-      display: grid;
-      grid-template-columns: 110px 1fr 190px;
-      gap: 20px;
-      align-items: center;
-      min-height: 112px;
-      padding: 22px;
-      border-right: 1px solid var(--line-2);
-      border-bottom: 1px solid var(--line-2);
-      background: rgba(12,17,23,.74);
-      transition: background var(--ease), transform var(--ease);
-    }
-
-    .stack-row:hover {
-      background: rgba(16,23,32,.88);
-      transform: translateX(2px);
-    }
-
-    .stack-row .layer-id {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .stack-row h4 {
-      font-size: 18px;
-      letter-spacing: -.02em;
-      margin-bottom: 5px;
-    }
-
-    .stack-row p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .stack-row .layer-tag {
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-    }
-
-    .map-section {
-      padding-top: 100px;
-    }
-
-    .map-layout {
-      display: grid;
-      grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .map-main {
-      border: 1px solid var(--line-2);
-      background:
-        radial-gradient(circle at 86% 12%, rgba(159,227,234,.12), transparent 18rem),
-        rgba(12,17,23,.82);
-      padding: 32px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .map-main h3 {
-      font-family: var(--serif);
-      font-size: clamp(2.8rem, 4.2vw, 4.65rem);
-      line-height: .92;
-      letter-spacing: -.05em;
-      font-weight: 400;
-      margin-bottom: 22px;
-    }
-
-    .map-main p {
-      color: var(--soft);
-      font-size: 17px;
-      line-height: 1.68;
-      max-width: 520px;
-    }
-
-    .facts {
-      margin-top: 32px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-    }
-
-    .fact {
-      background: rgba(6,8,11,.86);
-      padding: 16px;
-    }
-
-    .fact span {
-      display: block;
-      margin-bottom: 8px;
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .fact strong {
-      display: block;
-      color: var(--text);
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 1.35;
-    }
-
-    .map-detail {
-      display: grid;
-      gap: 10px;
-    }
-
-    .detail {
-      border: 1px solid var(--line-2);
-      background: rgba(12,17,23,.76);
-      overflow: hidden;
-    }
-
-    .detail summary {
-      list-style: none;
-      cursor: pointer;
-      padding: 18px 20px;
-      display: flex;
-      justify-content: space-between;
-      gap: 18px;
-      align-items: center;
-      color: var(--text);
-      font-size: 16px;
-      letter-spacing: -.01em;
-    }
-
-    .detail summary::-webkit-details-marker { display: none; }
-
-    .detail summary::after {
-      content: "+";
-      color: var(--accent);
-      font-family: var(--mono);
-      transition: transform var(--ease);
-    }
-
-    .detail[open] summary::after { transform: rotate(45deg); }
-
-    .detail p {
-      padding: 0 20px 20px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.65;
-    }
-
-    .sequence {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-top: 1px solid var(--line-2);
-      border-left: 1px solid var(--line-2);
-    }
-
-    .phase {
-      min-height: 296px;
-      padding: 28px;
-      border-right: 1px solid var(--line-2);
-      border-bottom: 1px solid var(--line-2);
-      background: rgba(12,17,23,.74);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .phase.primary {
-      background:
-        radial-gradient(circle at 82% 10%, rgba(159,227,234,.11), transparent 16rem),
-        rgba(16,23,32,.84);
-      border-color: rgba(159,227,234,.34);
-    }
-
-    .phase-label {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-bottom: 34px;
-    }
-
-    .phase h3 {
-      font-family: var(--serif);
-      font-size: clamp(2.55rem, 3.5vw, 3.85rem);
-      font-weight: 400;
-      line-height: .92;
-      letter-spacing: -.048em;
-      margin-bottom: 16px;
-    }
-
-    .phase p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.62;
-    }
-
-    .agent-note {
-      margin-top: 22px;
-      padding: 22px 24px;
-      border: 1px solid var(--line-2);
-      background: rgba(12,17,23,.72);
-      display: grid;
-      grid-template-columns: 210px minmax(0, 1fr);
-      gap: 28px;
-      align-items: start;
-    }
-
-    .agent-note strong {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      line-height: 1.7;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .agent-note p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.65;
-    }
-
-    .usecases {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .case {
-      min-height: 330px;
-      padding: 26px;
-      border: 1px solid var(--line-2);
-      background: rgba(12,17,23,.76);
-      display: flex;
-      flex-direction: column;
-      transition: background var(--ease), transform var(--ease);
-    }
-
-    .case:hover {
-      background: rgba(16,23,32,.88);
-      transform: translateY(-2px);
-    }
-
-    .case-label {
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      margin-bottom: 28px;
-    }
-
-    .case h3 {
-      font-family: var(--serif);
-      font-size: clamp(2.25rem, 3.2vw, 3.45rem);
-      line-height: .94;
-      letter-spacing: -.045em;
-      font-weight: 400;
-      margin-bottom: 16px;
-    }
-
-    .case p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.62;
-    }
-
-    .case-output {
-      margin-top: auto;
-      padding-top: 24px;
-      display: grid;
-      gap: 9px;
-    }
-
-    .case-output span {
-      border-top: 1px solid var(--line);
-      padding-top: 9px;
-      color: var(--soft);
-      font-size: 14px;
-    }
-
-    .workbench {
-      display: grid;
-      grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
-      gap: 22px;
-      align-items: stretch;
-    }
-
-    .workbench-note,
-    .deliverables {
-      border: 1px solid var(--line-2);
-      background: rgba(12,17,23,.76);
-    }
-
-    .workbench-note {
-      padding: 30px;
-    }
-
-    .workbench-note h3 {
-      font-family: var(--serif);
-      font-size: clamp(2.55rem, 3.8vw, 4.15rem);
-      line-height: .94;
-      letter-spacing: -.045em;
-      font-weight: 400;
-      margin-bottom: 20px;
-    }
-
-    .workbench-note p {
-      color: var(--muted);
-      font-size: 16px;
-      line-height: 1.7;
-    }
-
-    .deliverables {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      border-left: 1px solid var(--line-2);
-      border-top: 1px solid var(--line-2);
-      border-right: 0;
-      border-bottom: 0;
-    }
-
-    .deliverable {
-      min-height: 158px;
-      padding: 20px;
-      border-right: 1px solid var(--line-2);
-      border-bottom: 1px solid var(--line-2);
-      background: rgba(12,17,23,.66);
-    }
-
-    .deliverable span {
-      display: block;
-      margin-bottom: 22px;
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .deliverable strong {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .deliverable p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .final {
-      padding: 96px 0 104px;
-    }
-
-    .final-panel {
-      padding: 40px;
-      border: 1px solid var(--line-2);
-      background:
-        radial-gradient(circle at 92% 18%, rgba(159,227,234,.10), transparent 24rem),
-        rgba(12,17,23,.82);
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 330px;
-      gap: 46px;
-      align-items: end;
-    }
-
-    .final p {
-      max-width: 690px;
-      margin-top: 24px;
-      color: var(--soft);
-      font-size: 18px;
-      line-height: 1.68;
-    }
-
-    .contact-box {
-      padding: 25px;
-      display: grid;
-      gap: 18px;
-      border: 1px solid var(--line-2);
-      background: rgba(6,8,11,.82);
-    }
-
-    .contact-box p {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .email {
-      width: fit-content;
-      padding-bottom: 4px;
-      border-bottom: 1px solid rgba(159,227,234,.42);
-      color: var(--accent);
-      font-family: var(--mono);
-      font-size: 12px;
-      letter-spacing: .04em;
-    }
-
-    .footer {
-      padding: 28px 0;
-      border-top: 1px solid var(--line);
-      color: var(--faint);
-      font-family: var(--mono);
-      font-size: 10px;
-      line-height: 1.8;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-    }
-
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 560ms cubic-bezier(.2,.8,.2,1), transform 560ms cubic-bezier(.2,.8,.2,1);
-    }
-
-    .reveal.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @media (max-width: 1060px) {
-      .nav { display: none; }
-      .header-inner { grid-template-columns: 1fr auto; }
-      .hero-inner,
-      .section-top,
-      .workflow-stack,
-      .map-layout,
-      .workbench,
-      .final-panel,
-      .agent-note {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: auto;
-      }
-
-      .stack-panel {
-        max-width: 560px;
-      }
-
-      .signal-grid,
-      .sequence,
-      .usecases {
-        grid-template-columns: 1fr;
-      }
-
-      .stack-row {
-        grid-template-columns: 90px 1fr;
-      }
-
-      .stack-row .layer-tag {
-        grid-column: 2;
-      }
-    }
-
-    @media (max-width: 740px) {
-      body {
-        background:
-          radial-gradient(circle at 80% 0%, rgba(159,227,234,.07), transparent 18rem),
-          var(--bg);
-      }
-
-      .page {
-        border-left: 0;
-        border-right: 0;
-        background: rgba(6,8,11,.90);
-      }
-
-      .container,
-      .header-inner,
-      .hero-inner {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .header {
-        height: 64px;
-      }
-
-      .brand-word {
-        font-size: 30px;
-      }
-
-      .brand-line,
-      .header-cta {
-        display: none;
-      }
-
-      .hero::before,
-      .hero::after {
-        display: none;
-      }
-
-      .hero-inner {
-        display: block;
-        padding-top: 46px;
-        padding-bottom: 36px;
-      }
-
-      .kicker {
-        margin-bottom: 20px;
-        font-size: 10px;
-      }
-
-      h1 {
-        font-size: clamp(3rem, 13.2vw, 3.95rem);
-        line-height: .98;
-        letter-spacing: -.04em;
-      }
-
-      h2 {
-        font-size: clamp(2.45rem, 10.5vw, 3.55rem);
-        line-height: 1;
-        letter-spacing: -.038em;
-      }
-
-      .hero-copy,
-      .section-sub,
-      .final p {
-        font-size: 17px;
-        line-height: 1.72;
-      }
-
-      .hero-actions .btn {
-        width: 100%;
-      }
-
-      .stack-panel {
-        margin-top: 34px;
-        box-shadow: none;
-      }
-
-      .mini-stack {
-        padding: 14px;
-      }
-
-      .stack-axis {
-        grid-template-columns: 1fr;
-      }
-
-      .section {
-        padding: 68px 0;
-      }
-
-      .section-top {
-        display: block;
-        margin-bottom: 30px;
-      }
-
-      .section-label {
-        margin-bottom: 18px;
-        padding-top: 0;
-      }
-
-      .signal,
-      .phase,
-      .case {
-        min-height: auto;
-        padding: 24px;
-      }
-
-      .stack-intro,
-      .map-main,
-      .workbench-note,
-      .final-panel {
-        padding: 24px;
-      }
-
-      .stack-row {
-        grid-template-columns: 1fr;
-        gap: 10px;
-      }
-
-      .stack-row .layer-tag {
-        grid-column: auto;
-      }
-
-      .facts,
-      .deliverables {
-        grid-template-columns: 1fr;
-      }
-
-      .map-main h3,
-      .phase h3,
-      .case h3,
-      .workbench-note h3,
-      .stack-intro h3 {
-        font-size: clamp(2.35rem, 10.5vw, 3.45rem);
-      }
-
-      .final-panel {
-        gap: 30px;
-      }
-
-      .footer-inner {
-        flex-direction: column;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-        scroll-behavior: auto !important;
-      }
-
-      .reveal {
-        opacity: 1;
-        transform: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PRAXIS — AI-Exposed Workflow Redesign</title>
+<meta name="description" content="PRAXIS maps AI-exposed workflows, redesigns roles and controls, and defines the right AI role inside the operating model.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:       #06070D;
+  --bg-1:     #090B17;
+  --bg-2:     #0D1020;
+  --bg-3:     #12172A;
+  --line:     rgba(255,255,255,0.070);
+  --line-mid: rgba(255,255,255,0.135);
+  --text:     #949ABB;
+  --text-dim: #4A506B;
+  --text-mid: #737A9C;
+  --acc:      #6E8DFF;
+  --acc-dim:  rgba(110,141,255,0.10);
+  --acc-glow: rgba(110,141,255,0.05);
+  --white:    #E4E6F6;
+  --red:      #FF6464;
+  --paper:    #C8CEE8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+[id] { scroll-margin-top: 58px; }
+
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.014) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+
+nav, section, footer, .s-bar, .stack-section, .pull-line { position: relative; z-index: 1; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 52px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.45s, background 0.45s;
+}
+nav.scrolled {
+  border-bottom-color: var(--line);
+  background: rgba(7,8,15,0.94);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.nav-brand {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--white); text-decoration: none;
+  display: flex; align-items: center; gap: 7px;
+}
+.brand-mark, .footer-mark {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.brand-mark svg { width: 21px; height: 21px; }
+.footer-mark svg { width: 18px; height: 18px; }
+.mark-ring, .mark-line, .mark-stem {
+  fill: none;
+  stroke: var(--acc);
+  vector-effect: non-scaling-stroke;
+}
+.mark-ring {
+  stroke-width: 1;
+  opacity: .48;
+}
+.mark-line {
+  stroke-width: 1.65;
+  stroke-linecap: round;
+}
+.mark-stem {
+  stroke-width: 1.55;
+  stroke-linecap: round;
+  opacity: .92;
+}
+.nav-links { display: flex; list-style: none; align-items: center; }
+.nav-links a {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.08em;
+  color: var(--text-dim); text-decoration: none;
+  padding: 0 14px; height: 52px;
+  display: flex; align-items: center; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-cta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10.5px; font-weight: 500; letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--bg); background: var(--acc);
+  padding: 9px 20px; text-decoration: none; margin-left: 18px; transition: opacity 0.2s;
+}
+.nav-cta:hover { opacity: 0.82; }
+
+/* SECTION BAR */
+.s-bar {
+  height: 40px; display: flex; align-items: center;
+  background: var(--bg-1);
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+}
+.s-bar-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; color: var(--acc); padding: 0 24px; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--line); min-width: 68px; }
+.s-bar-title { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mid); padding: 0 24px; height: 100%; display: flex; align-items: center; }
+.s-bar-right { margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.08em; color: var(--text-dim); padding: 0 24px; border-left: 1px solid var(--line); height: 100%; display: flex; align-items: center; }
+
+/* LAYOUT + TYPE */
+.wrap { padding: 88px 80px; border-bottom: 1px solid var(--line); }
+.wrap.alt { background: var(--bg-1); }
+.col-2 { display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start; }
+
+.display { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.04; letter-spacing: -0.025em; color: var(--white); }
+.display em { font-style: italic; color: var(--acc); }
+.display-xl { font-size: clamp(48px, 6.05vw, 90px); }
+.display-lg { font-size: clamp(32px, 3.8vw, 52px); }
+.display-md { font-size: clamp(24px, 2.7vw, 36px); }
+
+.s-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.20em; text-transform: uppercase; color: var(--acc); display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+.s-label::before { content: ''; width: 16px; height: 1px; background: var(--acc); display: block; }
+
+.body-lg { font-size: 16px; font-weight: 300; color: var(--text-mid); line-height: 1.9; }
+.body-md { font-size: 14px; font-weight: 300; color: var(--text-mid); line-height: 1.9; }
+.body-md p + p { margin-top: 18px; }
+.body-md strong { color: var(--white); font-weight: 500; }
+
+.btn { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; display: inline-block; padding: 13px 26px; transition: opacity 0.2s, border-color 0.2s, color 0.2s; }
+.btn-primary {
+  color: #050711;
+  background: linear-gradient(180deg, #8EA4FF, var(--acc));
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.btn-primary:hover { opacity: 0.90; }
+.btn-ghost { color: var(--text-dim); border: 1px solid var(--line-mid); }
+.btn-ghost:hover { color: var(--white); border-color: rgba(110,141,255,0.35); }
+.actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+/* HERO */
+.hero { min-height: 100vh; padding-top: 52px; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+.hero-pi-bg {
+  position: absolute; right: -3%; bottom: -14%;
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: clamp(300px, 44vw, 680px); line-height: 0.82;
+  color: var(--acc); opacity: 0.024;
+  pointer-events: none; user-select: none; z-index: 0; letter-spacing: -0.04em;
+}
+.hero-main { flex: 1; display: grid; grid-template-columns: 1fr 340px; border-bottom: 1px solid var(--line); position: relative; z-index: 1; }
+.hero-left { padding: 92px 84px 82px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: space-between; gap: 52px; }
+.hero-kicker { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.13em; color: var(--text-dim); display: block; margin-bottom: 28px; }
+.hero-sub { font-size: 17px; font-weight: 300; color: var(--text-mid); line-height: 1.75; max-width: 560px; margin-bottom: 28px; }
+.hero-meta { margin-top: 16px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; line-height: 1.8; }
+
+.hero-right { display: flex; flex-direction: column; position: relative; z-index: 1; }
+
+.hero-system {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 78% 10%, rgba(110,141,255,.10), transparent 16rem),
+    rgba(10,12,26,.58);
+}
+.system-head {
+  height: 52px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.system-head em {
+  font-style: normal;
+  color: var(--acc);
+}
+.artifact-preview {
+  margin: 28px 28px 0;
+  border: 1px solid var(--line-mid);
+  background: rgba(7,8,15,.68);
+  min-height: 248px;
+}
+.artifact-title {
+  height: 48px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+.artifact-title span {
+  color: var(--white);
+  font-size: 13px;
+  font-weight: 500;
+}
+.artifact-title em {
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 9px;
+  color: var(--text-dim);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.flow-vis {
+  position: relative;
+  min-height: 198px;
+  background:
+    linear-gradient(rgba(255,255,255,.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size: 24px 24px;
+  overflow: hidden;
+}
+.flow-vis svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.flow-vis path {
+  fill: none;
+  stroke: rgba(110,141,255,.62);
+  stroke-width: 1.2;
+  stroke-dasharray: 5 8;
+  vector-effect: non-scaling-stroke;
+}
+.flow-vis path.warn {
+  stroke: rgba(255,100,100,.55);
+  stroke-dasharray: 3 7;
+}
+.flow-node {
+  position: absolute;
+  z-index: 1;
+  min-width: 58px;
+  text-align: center;
+  padding: 8px 9px;
+  border: 1px solid var(--line-mid);
+  background: rgba(7,8,15,.92);
+  color: var(--text-mid);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .08em;
+}
+.flow-node.ai {
+  color: #050711;
+  background: var(--acc);
+  border-color: var(--acc);
+}
+.flow-node.n1 { left: 22px; top: 30px; }
+.flow-node.n2 { left: 96px; top: 60px; }
+.flow-node.n3 { left: 50%; top: 22px; transform: translateX(-50%); min-width: 44px; }
+.flow-node.n4 { right: 76px; top: 30px; }
+.flow-node.n5 { right: 18px; top: 60px; }
+.mini-output-grid {
+  margin: auto 28px 28px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+.mini-output {
+  min-height: 74px;
+  padding: 14px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: rgba(7,8,15,.58);
+}
+.mini-output span {
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: .12em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+.mini-output strong {
+  color: var(--paper);
+  font-size: 13px;
+  font-weight: 500;
+}
+.hero-phase-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-height: 112px;
+}
+.hero-phase-row .hero-phase {
+  border-bottom: none;
+  border-right: 1px solid var(--line);
+  padding: 22px 20px;
+  justify-content: center;
+}
+.hero-phase-row .hero-phase:last-child { border-right: none; }
+
+.hero-phase { flex: 1; padding: 32px 36px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 9px; transition: background 0.2s; cursor: default; }
+.hero-phase:last-child { border-bottom: none; }
+.hero-phase:hover { background: var(--bg-2); }
+
+.hero-phase.phase-primary {
+  background: rgba(110,141,255,0.045);
+  border-left: 2px solid rgba(110,141,255,0.55);
+}
+.hero-phase.phase-primary .hp-name { color: var(--white); }
+
+.hp-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--acc); }
+.hp-name { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; color: var(--white); letter-spacing: -0.01em; }
+.hp-desc { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); line-height: 1.65; letter-spacing: 0.02em; }
+
+/* STRUCTURAL SHIFT */
+.signals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 52px; border-top: 1px solid var(--line); }
+.signal-card { padding: 36px 30px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 14px; transition: background 0.2s; cursor: default; min-height: 210px; }
+.signal-card:last-child { border-right: none; }
+.signal-card:hover { background: var(--bg-2); border-left: 2px solid rgba(110,141,255,0.35); }
+.sig-n { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--acc); }
+.sig-text { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.8; }
+.sig-text strong { color: var(--white); font-weight: 500; }
+
+/* STACK */
+.stack-section { border-bottom: 1px solid var(--line); background: var(--bg); }
+.stack-axes {
+  display: grid; grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-1);
+}
+.stack-axis {
+  padding: 14px 80px; display: flex; align-items: center; gap: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-dim);
+}
+.stack-axis:first-child { border-right: 1px solid var(--line); }
+.stack-axis-arrow { color: var(--acc); font-size: 13px; }
+.stack-intro { padding: 52px 80px 0; display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start; }
+.stack-bands { margin-top: 44px; }
+.stack-band {
+  display: grid; grid-template-columns: 80px 1fr 190px;
+  align-items: center; gap: 0;
+  border-top: 1px solid var(--line);
+  padding: 0 80px;
+  transition: background 0.2s; cursor: default;
+  min-height: 82px;
+}
+.stack-band:last-child { border-bottom: 1px solid var(--line); }
+.stack-band:hover { background: var(--bg-2); }
+.stack-band.l04 { background: rgba(110,141,255,0.060); border-left: 3px solid rgba(110,141,255,0.8); border-top: 1px solid rgba(110,141,255,0.18); }
+.stack-band.l03 { background: rgba(110,141,255,0.036); border-left: 2px solid rgba(110,141,255,0.45); }
+.stack-band.l02 { background: rgba(110,141,255,0.022); border-left: 2px solid rgba(110,141,255,0.22); }
+.stack-band.l01 { border-left: 1px solid rgba(110,141,255,0.10); }
+.sb-num { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 40px; color: var(--acc); letter-spacing: -0.03em; line-height: 1; opacity: 0.7; }
+.sb-center { padding: 24px 36px 24px 0; border-right: 1px solid var(--line); }
+.sb-name { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; color: var(--white); letter-spacing: -0.015em; margin-bottom: 6px; }
+.sb-desc { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.75; }
+.sb-right { padding: 0 0 0 36px; }
+.sb-badge { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); line-height: 1.7; }
+.sb-badge span { display: block; }
+.sb-badge .hi { color: var(--acc); }
+
+/* METHOD */
+.method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+.method-card {
+  border: 1px solid var(--line);
+  display: flex; flex-direction: column;
+  transition: background 0.2s; position: relative; overflow: hidden; cursor: default;
+}
+.method-card:hover { background: var(--bg-2); border-left: 2px solid rgba(110,141,255,0.35); }
+.method-card.featured { border-color: rgba(110,141,255,0.22); background: rgba(110,141,255,0.02); }
+.mc-bg { position: absolute; top: -14px; right: 14px; font-family: 'Instrument Serif', serif; font-style: italic; font-size: 128px; line-height: 1; color: var(--acc); opacity: 0.038; pointer-events: none; user-select: none; }
+.mc-head { padding: 36px 40px 26px; border-bottom: 1px solid var(--line); }
+.mc-phase { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); margin-bottom: 10px; display: block; }
+.mc-name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 22px; color: var(--white); letter-spacing: -0.025em; line-height: 1.05; }
+.mc-tag { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.7; margin-top: 10px; }
+.mc-body { padding: 26px 40px; flex: 1; }
+.mc-body p { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.8; }
+.mc-items { margin-top: 18px; display: flex; flex-direction: column; }
+.mc-item { display: flex; align-items: flex-start; gap: 11px; padding: 8px 0; border-top: 1px solid var(--line); }
+.mc-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--acc); flex-shrink: 0; margin-top: 7px; }
+.mc-item-text { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.02em; line-height: 1.6; }
+.mc-foot { padding: 18px 40px; border-top: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.mc-note { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.04em; line-height: 1.6; }
+.mc-link { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--acc); text-decoration: none; transition: opacity 0.2s; white-space: nowrap; }
+.mc-link:hover { opacity: 0.7; }
+.agent-note {
+  margin-top: 20px;
+  padding: 22px 28px;
+  border: 1px solid rgba(110,141,255,0.14);
+  background: var(--acc-glow);
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+}
+.agent-note-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+.agent-note p {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.8;
+}
+
+
+/* DELIVERABLE MOCKUPS */
+.deliverable-lab {
+  margin-top: 22px;
+  border: 1px solid var(--line);
+  background: rgba(10,12,26,.50);
+}
+.deliverable-lab-head {
+  height: 46px;
+  padding: 0 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.deliverable-lab-head span {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--acc);
+}
+.deliverable-lab-head em {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  font-style: normal;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.deliverable-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.deliverable-card {
+  min-height: 190px;
+  border-right: 1px solid var(--line);
+  padding: 18px;
+  background: rgba(7,8,15,.38);
+  position: relative;
+  overflow: hidden;
+}
+.deliverable-card:last-child { border-right: none; }
+.dc-top {
+  height: 42px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 16px;
+}
+.dc-top span {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 26px;
+  line-height: .82;
+  color: var(--acc);
+  opacity: .68;
+}
+.dc-top strong {
+  color: var(--white);
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 500;
+}
+.mock-flow, .mock-matrix, .mock-controls, .mock-roadmap {
+  min-height: 104px;
+  position: relative;
+}
+.mock-flow {
+  background:
+    linear-gradient(rgba(255,255,255,.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.mock-flow i {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: 34px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line-mid);
+  background: rgba(7,8,15,.86);
+  color: var(--text-mid);
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 9px;
+  z-index: 1;
+}
+.mock-flow svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.mock-flow path { fill: none; stroke: rgba(110,141,255,.58); stroke-width: 1.1; stroke-dasharray: 4 7; }
+.mock-matrix {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  gap: 5px;
+}
+.mock-matrix b {
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.025);
+}
+.mock-matrix b.on { background: rgba(110,141,255,.18); border-color: rgba(110,141,255,.35); }
+.mock-matrix b.warn { background: rgba(255,100,100,.14); border-color: rgba(255,100,100,.28); }
+.mock-controls {
+  display: grid;
+  gap: 8px;
+}
+.mock-controls p {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 8px;
+}
+.mock-controls em {
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--acc);
+  display: block;
+  transform: rotate(45deg);
+  flex: 0 0 7px;
+  margin-top: 1px;
+}
+.mock-roadmap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  align-items: end;
+}
+.mock-roadmap div {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(110,141,255,.10), rgba(255,255,255,.015));
+  position: relative;
+}
+.mock-roadmap .r1 { height: 58%; }
+.mock-roadmap .r2 { height: 88%; }
+.mock-roadmap .r3 { height: 72%; }
+.mock-roadmap span {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  color: var(--text-dim);
+}
+
+/* USE CASES */
+.use-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 52px; }
+.use-card { border: 1px solid var(--line); border-left: 2px solid transparent; padding: 38px 38px; display: flex; flex-direction: column; gap: 16px; transition: background 0.2s, border-color 0.2s; cursor: default; }
+.use-card:hover { background: var(--bg-2); border-left-color: rgba(110,141,255,0.45); }
+.use-domain { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); }
+.use-title { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 17px; color: var(--white); letter-spacing: -0.015em; line-height: 1.2; }
+.use-issue { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+.use-clarifies { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.75; }
+.use-agent { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em; color: var(--text-dim); padding-top: 12px; border-top: 1px solid var(--line); margin-top: auto; opacity: .78; }
+.use-agent span { color: var(--text-mid); }
+
+/* WHO */
+.who-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 52px; }
+.who-card { border: 1px solid var(--line); border-left: 2px solid rgba(110,141,255,0.18); padding: 34px 40px; background: var(--bg); transition: border-color 0.2s, background 0.2s; }
+.who-card:hover { background: var(--bg-2); border-left-color: rgba(110,141,255,0.45); }
+.who-type { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc); margin-bottom: 10px; }
+.who-title { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 16px; color: var(--white); margin-bottom: 12px; }
+.who-text { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.8; }
+.buyers { margin-top: 2px; border: 1px solid var(--line); background: var(--bg-2); padding: 22px 40px; }
+.buyers-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 12px; display: block; }
+.buyers-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.buyer-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.08em; color: var(--text-mid);
+  padding: 5px 12px; border: 1px solid var(--line);
+  background: var(--bg-3);
+}
+
+/* FIELD NOTE */
+.field-note {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  border-bottom: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 88% 30%, rgba(110,141,255,0.07), transparent 30rem),
+    var(--bg-1);
+}
+.field-main { padding: 84px 80px; border-right: 1px solid var(--line); }
+.field-aside { padding: 36px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; }
+.field-no { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 112px; line-height: 0.85; color: var(--acc); opacity: .52; }
+.field-meta { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim); line-height: 1.9; }
+
+/* NOT */
+.not-list { display: flex; flex-direction: column; border-top: 1px solid var(--line); margin-top: 0; }
+.not-item { display: grid; grid-template-columns: 220px 1fr; gap: 48px; padding: 24px 0 24px 16px; border-bottom: 1px solid var(--line); align-items: start; border-left: 3px solid transparent; transition: border-color 0.25s; }
+.not-item:hover { border-left-color: rgba(255,100,100,0.32); }
+.not-label { font-family: 'Inter', sans-serif; font-weight: 500; font-size: 13px; color: var(--red); letter-spacing: 0.01em; }
+.not-text { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.82; }
+
+/* CTA */
+.cta-section { display: grid; grid-template-columns: 1fr 320px; border-bottom: 1px solid var(--line); }
+.cta-main { padding: 96px 80px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 30px; background: radial-gradient(circle at 8% 92%, rgba(110,141,255,0.05), transparent 32rem); }
+.cta-aside { display: flex; flex-direction: column; }
+.cta-block { flex: 1; padding: 30px 36px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; gap: 12px; }
+.cta-block:last-child { border-bottom: none; }
+.cta-step { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 40px; line-height: .82; color: var(--acc); opacity: .58; }
+.cta-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-mid); }
+.cta-text { font-size: 13px; font-weight: 300; color: var(--text-mid); line-height: 1.82; }
+
+/* FOOTER */
+footer {
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+}
+.footer-left {
+  padding: 48px 80px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 32px;
+}
+.footer-top { display: flex; flex-direction: column; gap: 6px; }
+.footer-brand { font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); display: flex; align-items: center; gap: 7px; }
+.footer-desc { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); letter-spacing: 0.04em; }
+.footer-links { display: flex; flex-wrap: wrap; }
+.footer-links a { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-dim); text-decoration: none; padding: 4px 16px 4px 0; letter-spacing: 0.04em; transition: color 0.2s; }
+.footer-links a:hover { color: var(--text); }
+.footer-bottom { display: flex; flex-direction: column; gap: 6px; }
+.footer-email { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--acc); letter-spacing: 0.04em; text-decoration: none; transition: opacity 0.2s; }
+.footer-email:hover { opacity: 0.7; }
+.footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-dim); letter-spacing: 0.04em; }
+.footer-right {
+  padding: 48px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+}
+.footer-statement {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(22px, 2.4vw, 32px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--white);
+  opacity: 0.72;
+}
+.footer-statement em {
+  color: var(--acc);
+  font-style: italic;
+  opacity: 1;
+}
+.footer-greek {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  line-height: 1.8;
+}
+.footer-greek strong {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--acc);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-right: 6px;
+}
+
+/* FADE */
+.fade { opacity: 0; transform: translateY(10px); transition: opacity 0.68s ease, transform 0.68s ease; }
+.fade.show { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.10s; }
+.d2 { transition-delay: 0.20s; }
+
+/* SELECTION */
+::selection { background: rgba(110,141,255,0.28); color: var(--white); }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: rgba(110,141,255,0.22); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(110,141,255,0.40); }
+
+/* MAP ADDITIONS */
+.mock-matrix-wrap { display: flex; flex-direction: column; gap: 5px; }
+.mock-axis-x { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-dim); }
+.mock-axis-y { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-dim); text-align: right; }
+.mock-controls em.done { background: rgba(110,141,255,0.55); }
+.mock-controls em.warn { background: rgba(255,100,100,0.50); border-color: rgba(255,100,100,0.75); }
+.mock-timeline { display: flex; flex-direction: column; gap: 12px; padding-top: 2px; }
+.mock-tl-track { display: flex; align-items: center; padding: 0 6px; }
+.mock-tl-node { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(110,141,255,0.45); background: transparent; flex-shrink: 0; }
+.mock-tl-node.done { background: rgba(110,141,255,0.65); border-color: rgba(110,141,255,0.85); }
+.mock-tl-node.active { background: rgba(110,141,255,0.25); border-color: rgba(110,141,255,0.70); }
+.mock-tl-line { flex: 1; height: 1px; background: rgba(110,141,255,0.18); }
+.mock-tl-labels { display: grid; grid-template-columns: repeat(3,1fr); }
+.mock-tl-phase { padding: 0 4px; }
+.mock-tl-range { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; color: var(--text-dim); letter-spacing: 0.08em; margin-bottom: 3px; }
+.mock-tl-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--acc); letter-spacing: 0.06em; font-weight: 500; }
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .col-2 { grid-template-columns: 1fr; gap: 40px; }
+  .stack-intro { grid-template-columns: 1fr; gap: 32px; }
+  .method-grid { grid-template-columns: 1fr; }
+  .stack-band { grid-template-columns: 60px 1fr; padding: 0 40px; }
+  .sb-right { display: none; }
+  .stack-axes .stack-axis { padding: 14px 40px; }
+}
+@media (max-width: 860px) {
+  .hero-main { grid-template-columns: 1fr; }
+  .hero-left { border-right: none; border-bottom: 1px solid var(--line); }
+  .hero-right { display: flex; }
+  .hero-phase-row { grid-template-columns: repeat(3, 1fr); }
+  .hero-phase { border-bottom: none; }
+  .signals-grid { grid-template-columns: 1fr; }
+  .use-grid { grid-template-columns: 1fr; }
+  .who-grid { grid-template-columns: 1fr; }
+  .not-item { grid-template-columns: 1fr; gap: 6px; }
+  .cta-section, .field-note { grid-template-columns: 1fr; }
+  .cta-main, .field-main { border-right: none; border-bottom: 1px solid var(--line); }
+  footer { grid-template-columns: 1fr; }
+  .footer-left { border-right: none; border-bottom: 1px solid var(--line); padding: 40px 24px; }
+  .footer-right { padding: 40px 24px; }
+}
+@media (max-width: 600px) {
+  nav { padding: 0 24px; }
+  .nav-links { display: none; }
+  .nav-cta { font-size: 10px; padding: 8px 14px; margin-left: 10px; }
+  .hero-left { padding: 52px 24px 44px; }
+  .display-xl { font-size: clamp(40px, 10vw, 60px); }
+  .display-md { font-size: clamp(22px, 5.5vw, 30px); }
+  .wrap { padding: 64px 24px; }
+  .hero-right { display: flex; }
+  .hero-phase-row { grid-template-columns: 1fr; }
+  .hero-phase { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+  .hero-phase:last-child { border-bottom: none !important; }
+  .mc-head, .mc-body, .mc-foot { padding-left: 24px; padding-right: 24px; }
+  .use-card, .who-card { padding: 32px 24px; }
+  .buyers { padding-left: 24px; padding-right: 24px; }
+  .cta-main, .field-main { padding: 64px 24px; }
+  .cta-aside { display: none; }
+  .field-aside { padding: 32px 24px; }
+  .deliverable-grid { grid-template-columns: 1fr; }
+  .deliverable-card { border-right: none; border-bottom: 1px solid var(--line); }
+  .deliverable-card:last-child { border-bottom: none; }
+  .deliverable-lab-head { height: auto; min-height: 46px; align-items: flex-start; flex-direction: column; padding: 14px 18px; }
+  .hero-system { min-height: 390px; }
+  .artifact-preview { margin: 18px 20px 0; min-height: 210px; }
+  .mini-output-grid { margin: auto 20px 20px; }
+  .flow-vis { min-height: 150px; }
+
+  footer { padding: 0; }
+  .s-bar-right { display: none; }
+  .stack-band { padding: 0 24px; }
+  .stack-axes { grid-template-columns: 1fr; }
+  .stack-axis:first-child { border-right: none; border-bottom: 1px solid var(--line); }
+  .stack-axes .stack-axis { padding: 14px 24px; font-size: 9px; }
+  .stack-intro { padding: 40px 24px 0; }
+  .agent-note { grid-template-columns: 1fr; gap: 14px; padding: 20px 24px; }
+}
+</style>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 
 <body>
-  <div class="page">
-    <header class="header">
-      <div class="header-inner">
-        <a class="brand" href="#top" aria-label="Praxis home">
-          <span class="brand-word">Praxis</span>
-          <span class="brand-line">AI-exposed workflow redesign</span>
-        </a>
 
-        <nav class="nav" aria-label="Primary navigation">
-          <a href="#signals">Signals</a>
-          <a href="#stack">Stack</a>
-          <a href="#map">MAP</a>
-          <a href="#sequence">Method</a>
-          <a href="#contact">Contact</a>
-        </nav>
+<nav id="nav">
+  <a href="#top" class="nav-brand"><span class="brand-mark" aria-hidden="true">
+  <svg viewBox="0 0 32 32" role="img" aria-label="PRAXIS mark">
+    <path d="M7.2 9.4H24.8" class="mark-line"/>
+    <path d="M11.1 9.4L10.2 24.2" class="mark-stem"/>
+    <path d="M20.9 9.4L21.8 24.2" class="mark-stem"/>
+    <circle cx="16" cy="16" r="14.2" class="mark-ring"/>
+  </svg>
+</span>PRAXIS</a>
+  <ul class="nav-links">
+    <li><a href="#shift">Shift</a></li>
+    <li><a href="#stack">Stack</a></li>
+    <li><a href="#method">Method</a></li>
+    <li><a href="#usecases">Use cases</a></li>
+    <li><a href="#field-note">Field Note</a></li>
+  </ul>
+  <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="nav-cta">Request a MAP diagnostic →</a>
+</nav>
 
-        <div class="header-cta">
-          <a class="btn" href="mailto:alberto@praxis.co?subject=Discuss%20a%20workflow">Discuss a workflow</a>
+<section id="top" class="hero">
+  <div class="hero-pi-bg" aria-hidden="true">π</div>
+  <div class="hero-main">
+    <div class="hero-left">
+      <div class="fade">
+        <span class="hero-kicker">Finance · Legal · Governance · Professional Services</span>
+        <h1 class="display display-xl">
+          Your operating model<br>
+          was designed for a world<br>
+          where execution<br>
+          was <em>expensive.</em>
+        </h1>
+      </div>
+      <div class="fade d1">
+        <p class="hero-sub">PRAXIS maps AI-exposed workflows, redesigns roles and controls, and defines the right AI role inside the operating model.</p>
+        <div class="actions">
+          <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="btn btn-primary">Request a MAP diagnostic</a>
+          <a href="#stack" class="btn btn-ghost">Explore the Stack →</a>
+        </div>
+        <p class="hero-meta">Start with one workflow — its artefacts, decision points, current AI exposure and accountability structure.</p>
+      </div>
+    </div>
+
+    <div class="hero-right fade d2">
+      <div class="hero-system">
+        <div class="system-head">
+          <span>MAP Output Preview</span>
+          <em>Sample / 01</em>
+        </div>
+
+        <div class="artifact-preview">
+          <div class="artifact-title">
+            <span>As-is Flow Map</span>
+            <em>Workflow / Evidence / Control</em>
+          </div>
+          <div class="flow-vis" aria-hidden="true">
+            <svg viewBox="0 0 284 198" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <marker id="h-arr" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="5" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(110,141,255,0.6)"/></marker>
+                <marker id="h-warn" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="5" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(255,100,100,0.65)"/></marker>
+              </defs>
+              <line x1="52" y1="99" x2="59" y2="99" stroke="rgba(110,141,255,.55)" stroke-width="1" marker-end="url(#h-arr)"/>
+              <line x1="108" y1="99" x2="115" y2="99" stroke="rgba(110,141,255,.55)" stroke-width="1" marker-end="url(#h-arr)"/>
+              <line x1="164" y1="99" x2="171" y2="99" stroke="rgba(255,100,100,.65)" stroke-width="1" stroke-dasharray="2.5 2.5" marker-end="url(#h-warn)"/>
+              <line x1="220" y1="99" x2="227" y2="99" stroke="rgba(110,141,255,.55)" stroke-width="1" marker-end="url(#h-arr)"/>
+              <rect x="8" y="88" width="44" height="22" fill="rgba(7,8,15,.92)" stroke="rgba(255,255,255,.11)" stroke-width=".75"/>
+              <text x="30" y="102" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="rgba(160,166,186,.8)" letter-spacing=".05em">INTAKE</text>
+              <rect x="64" y="88" width="44" height="22" fill="rgba(7,8,15,.92)" stroke="rgba(255,255,255,.11)" stroke-width=".75"/>
+              <text x="86" y="102" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="rgba(160,166,186,.8)" letter-spacing=".05em">DRAFT</text>
+              <rect x="120" y="88" width="44" height="22" fill="rgba(110,141,255,.90)" stroke="rgba(110,141,255,.95)" stroke-width=".75"/>
+              <text x="142" y="102" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="rgba(5,7,17,.95)" letter-spacing=".08em">AI</text>
+              <rect x="176" y="88" width="44" height="22" fill="rgba(7,8,15,.92)" stroke="rgba(255,100,100,.38)" stroke-width=".75"/>
+              <text x="198" y="102" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8.5" fill="rgba(160,166,186,.8)" letter-spacing=".05em">REVIEW</text>
+              <rect x="232" y="88" width="44" height="22" fill="rgba(7,8,15,.92)" stroke="rgba(255,255,255,.11)" stroke-width=".75"/>
+              <text x="254" y="102" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7.5" fill="rgba(160,166,186,.8)" letter-spacing=".04em">SIGN-OFF</text>
+              <line x1="170" y1="112" x2="170" y2="136" stroke="rgba(255,100,100,.22)" stroke-width=".75" stroke-dasharray="2 3"/>
+              <text x="170" y="152" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="8" fill="rgba(255,100,100,.50)" letter-spacing=".06em">no control</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="mini-output-grid">
+          <div class="mini-output">
+            <span>AI-assisted steps</span>
+            <strong>3 of 7</strong>
+          </div>
+          <div class="mini-output">
+            <span>Missing controls</span>
+            <strong>2 identified</strong>
+          </div>
+          <div class="mini-output">
+            <span>Human decision points</span>
+            <strong>4 required</strong>
+          </div>
+          <div class="mini-output">
+            <span>Recommendation</span>
+            <strong>Blueprint ready</strong>
+          </div>
         </div>
       </div>
-    </header>
 
-    <main id="top">
-      <section class="hero">
-        <div class="container hero-inner">
-          <div class="reveal">
-            <p class="kicker">For finance, legal, governance and professional service teams.</p>
-            <h1>AI is changing the work. <span class="muted">The workflow has not been redesigned.</span></h1>
-            <p class="hero-copy">Praxis helps teams map AI-exposed workflows, redesign roles and controls, and define the right AI role inside the operating model — from existing tools to dedicated workflow agents when needed.</p>
-            <div class="hero-actions">
-              <a class="btn btn-primary" href="mailto:alberto@praxis.co?subject=Discuss%20a%20workflow">Discuss a workflow <span class="arrow">→</span></a>
-              <a class="btn" href="#map">See the MAP method</a>
-            </div>
-            <p class="microcopy">A focused conversation around one workflow, its artefacts, decision points and current AI exposure.</p>
-          </div>
-
-          <aside class="stack-panel reveal" aria-label="Praxis Workflow Stack">
-            <div class="panel-head">
-              <span>Praxis Workflow Stack</span>
-              <em>04 / 01</em>
-            </div>
-            <div class="mini-stack">
-              <div class="stack-layer-mini"><span>04</span><strong>Context</strong></div>
-              <div class="stack-layer-mini"><span>03</span><strong>Judgment</strong></div>
-              <div class="stack-layer-mini"><span>02</span><strong>Orchestration</strong></div>
-              <div class="stack-layer-mini"><span>01</span><strong>Execution</strong></div>
-            </div>
-            <div class="stack-axis">
-              <div>
-                <span>Automation potential</span>
-                <strong>Higher at execution</strong>
-              </div>
-              <div>
-                <span>Accountability density</span>
-                <strong>Higher at context</strong>
-              </div>
-            </div>
-          </aside>
+      <div class="hero-phase-row">
+        <div class="hero-phase phase-primary">
+          <div class="hp-num">01</div>
+          <div class="hp-name">MAP</div>
         </div>
-      </section>
-
-      <section id="signals" class="section">
-        <div class="container">
-          <div class="section-top reveal">
-            <div class="section-label">01 / Structural signals</div>
-            <div>
-              <h2>When AI enters high-trust work, the signal is structural.</h2>
-              <p class="section-sub">Task-level adoption can show where work gets faster. It cannot show how roles, controls, accountability and escalation must change around it.</p>
-            </div>
-          </div>
-
-          <div class="signal-grid reveal">
-            <article class="signal">
-              <div class="signal-num">Signal 01</div>
-              <h3>Execution accelerates.</h3>
-              <p>AI compresses drafting, research, analysis, reporting and synthesis. The workflow often still assumes human-only production.</p>
-            </article>
-
-            <article class="signal">
-              <div class="signal-num">Signal 02</div>
-              <h3>Judgment becomes exposed.</h3>
-              <p>Teams need to know where human judgment enters, what it verifies and when it overrides the system.</p>
-            </article>
-
-            <article class="signal">
-              <div class="signal-num">Signal 03</div>
-              <h3>Controls lag behind.</h3>
-              <p>Evidence, escalation, audit trail and accountability are often added after the fact instead of being designed into the flow.</p>
-            </article>
-          </div>
+        <div class="hero-phase">
+          <div class="hp-num">02</div>
+          <div class="hp-name">BLUEPRINT</div>
         </div>
-      </section>
-
-      <section id="stack" class="section">
-        <div class="container">
-          <div class="section-top reveal">
-            <div class="section-label">02 / Workflow Stack</div>
-            <div>
-              <h2>The workflow stack Praxis maps.</h2>
-              <p class="section-sub">Every AI-exposed workflow contains four layers. MAP makes them visible before the workflow is redesigned.</p>
-            </div>
-          </div>
-
-          <div class="workflow-stack reveal">
-            <article class="stack-intro">
-              <div>
-                <h3>AI orchestration is an operating design problem.</h3>
-                <p>Praxis identifies what AI performs, what humans verify, where escalation happens and who remains accountable.</p>
-              </div>
-            </article>
-
-            <div class="stack-visual">
-              <article class="stack-row">
-                <div class="layer-id">04</div>
-                <div>
-                  <h4>Context</h4>
-                  <p>The institutional, client, governance or business context that defines what good work means.</p>
-                </div>
-                <div class="layer-tag">Accountability density ↑</div>
-              </article>
-
-              <article class="stack-row">
-                <div class="layer-id">03</div>
-                <div>
-                  <h4>Judgment</h4>
-                  <p>Where human interpretation, decision-making and professional accountability remain required.</p>
-                </div>
-                <div class="layer-tag">Human authority</div>
-              </article>
-
-              <article class="stack-row">
-                <div class="layer-id">02</div>
-                <div>
-                  <h4>Orchestration</h4>
-                  <p>How work moves across humans, AI systems, tools, evidence, controls and escalation paths.</p>
-                </div>
-                <div class="layer-tag">Operating design</div>
-              </article>
-
-              <article class="stack-row">
-                <div class="layer-id">01</div>
-                <div>
-                  <h4>Execution</h4>
-                  <p>Structured cognitive work that AI may assist, compress or perform under defined constraints.</p>
-                </div>
-                <div class="layer-tag">Automation potential ↑</div>
-              </article>
-            </div>
-          </div>
+        <div class="hero-phase">
+          <div class="hp-num">03</div>
+          <div class="hp-name">EMBED</div>
         </div>
-      </section>
-
-      <section id="map" class="section map-section">
-        <div class="container">
-          <div class="section-top reveal">
-            <div class="section-label">03 / Praxis MAP</div>
-            <div>
-              <h2>Praxis MAP makes the workflow visible.</h2>
-              <p class="section-sub">A focused diagnostic for one to three AI-exposed workflows. MAP identifies how work currently moves, where AI is already entering, where friction accumulates, and where judgment, control, accountability and AI tooling logic need redesign.</p>
-            </div>
-          </div>
-
-          <div class="map-layout reveal">
-            <article class="map-main">
-              <div>
-                <h3>Designed to be bought before a broader transformation.</h3>
-                <p>MAP gives leadership a concrete view of the workflow before committing to redesign, tool rollout, agent development or operating model change.</p>
-              </div>
-
-              <div class="facts">
-                <div class="fact">
-                  <span>Scope</span>
-                  <strong>1–3 workflows</strong>
-                </div>
-                <div class="fact">
-                  <span>Inputs</span>
-                  <strong>Interviews, artefacts, policies, board materials, approvals</strong>
-                </div>
-                <div class="fact">
-                  <span>Outputs</span>
-                  <strong>Flow Map, AI Exposure Map, Control Map, Roadmap</strong>
-                </div>
-                <div class="fact">
-                  <span>Decision</span>
-                  <strong>Where AI belongs, what to redesign, which controls must exist</strong>
-                </div>
-              </div>
-            </article>
-
-            <div class="map-detail">
-              <details class="detail" open>
-                <summary>What MAP clarifies</summary>
-                <p>Where AI can support the workflow, where it should not yet be used, what judgment must stay human, and what evidence or escalation is required.</p>
-              </details>
-
-              <details class="detail">
-                <summary>What AI role belongs here</summary>
-                <p>MAP does not start from vendor selection. It identifies the capability the workflow needs: drafting, triage, research, monitoring, evidence collection, control checking or escalation support.</p>
-              </details>
-
-              <details class="detail">
-                <summary>Typical workflow examples</summary>
-                <p>Contract review, board pack preparation, management reporting, regulatory monitoring, finance commentary, matter delivery, compliance review and approval flows.</p>
-              </details>
-
-              <details class="detail">
-                <summary>What happens after MAP</summary>
-                <p>Leadership can move into BLUEPRINT, test a redesign, create operating standards, configure existing tools, or consider a dedicated workflow agent only where the model requires it.</p>
-              </details>
-
-              <a class="btn btn-primary" href="mailto:alberto@praxis.co?subject=Discuss%20a%20workflow">Discuss a workflow <span class="arrow">→</span></a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="sequence" class="section">
-        <div class="container">
-          <div class="section-top reveal">
-            <div class="section-label">04 / Sequence</div>
-            <div>
-              <h2>A sequence, not an open-ended advisory engagement.</h2>
-              <p class="section-sub">MAP is the entry point. BLUEPRINT and EMBED follow only when the workflow evidence is clear enough to redesign, operationalize or support with targeted AI capabilities.</p>
-            </div>
-          </div>
-
-          <div class="sequence reveal">
-            <article class="phase primary">
-              <div class="phase-label">01 / MAP</div>
-              <h3>Understand the work AI is entering.</h3>
-              <p>Make the current workflow, AI exposure, friction, control gaps and candidate AI roles visible.</p>
-            </article>
-
-            <article class="phase">
-              <div class="phase-label">02 / BLUEPRINT</div>
-              <h3>Design the orchestration layer.</h3>
-              <p>Define what AI performs, what humans verify, where evidence is required, when work escalates and whether the AI capability should be bought, configured or built.</p>
-            </article>
-
-            <article class="phase">
-              <div class="phase-label">03 / EMBED</div>
-              <h3>Support adoption through operating rituals.</h3>
-              <p>Help the redesigned workflow become governance routines, decision logs, review cadences, agent pilots and working behaviour.</p>
-            </article>
-          </div>
-
-          <div class="agent-note reveal">
-            <strong>Workflow agents</strong>
-            <p>Agents are not the starting point. They are a possible implementation layer when the Blueprint shows that a dedicated AI capability is required inside a redesigned workflow.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="usecases" class="section">
-        <div class="container">
-          <div class="section-top reveal">
-            <div class="section-label">05 / Use cases</div>
-            <div>
-              <h2>Where Praxis is useful.</h2>
-              <p class="section-sub">Praxis is most relevant where AI enters workflows that carry professional, financial, governance or reputational responsibility.</p>
-            </div>
-          </div>
-
-          <div class="usecases reveal">
-            <article class="case">
-              <div class="case-label">Legal / Governance</div>
-              <h3>Contracts, board materials, regulatory monitoring.</h3>
-              <p>Typical issue: faster drafting, unclear verification.</p>
-              <div class="case-output">
-                <span>Review architecture</span>
-                <span>Escalation logic</span>
-                <span>Possible agent: board pack or review triage</span>
-              </div>
-            </article>
-
-            <article class="case">
-              <div class="case-label">Finance</div>
-              <h3>Reporting packs, commentary, variance analysis.</h3>
-              <p>Typical issue: faster analysis, weaker evidence chain.</p>
-              <div class="case-output">
-                <span>Evidence requirements</span>
-                <span>Approval structure</span>
-                <span>Possible agent: commentary or control checklist</span>
-              </div>
-            </article>
-
-            <article class="case">
-              <div class="case-label">Professional Services</div>
-              <h3>Research, drafting, client deliverables.</h3>
-              <p>Typical issue: disrupted leverage, review and pricing.</p>
-              <div class="case-output">
-                <span>Work allocation model</span>
-                <span>Review points</span>
-                <span>Possible agent: intake, research or review support</span>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="container">
-          <div class="workbench reveal">
-            <article class="workbench-note">
-              <div class="section-label">06 / Workbench</div>
-              <h3>Workflow intelligence first. Agents only when the workflow requires them.</h3>
-              <p>Praxis Workbench structures artefacts, interview notes and workflow evidence across the four layers of the workflow stack. Where the Blueprint shows that a dedicated AI capability is required, Praxis can design or develop lightweight workflow agents. Workbench is not sold as standalone software today, and agents do not replace senior judgment.</p>
-            </article>
-
-            <div class="deliverables">
-              <article class="deliverable">
-                <span>Sample</span>
-                <strong>As-is Flow Map</strong>
-                <p>How work moves today.</p>
-              </article>
-              <article class="deliverable">
-                <span>Sample</span>
-                <strong>AI Role Matrix</strong>
-                <p>Where AI should draft, triage, monitor, check or stay out.</p>
-              </article>
-              <article class="deliverable">
-                <span>Sample</span>
-                <strong>Judgment & Control Map</strong>
-                <p>Human judgment, review requirements and escalation.</p>
-              </article>
-              <article class="deliverable">
-                <span>Sample</span>
-                <strong>Agent Pilot Brief</strong>
-                <p>When a dedicated workflow agent is justified by the operating model.</p>
-              </article>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="contact" class="final">
-        <div class="container">
-          <div class="final-panel reveal">
-            <div>
-              <p class="kicker">Start with the workflow</p>
-              <h2>Do not scale AI into a workflow you have not mapped.</h2>
-              <p>Praxis begins with a focused conversation around one workflow, its artefacts, decision points, current AI exposure and the role AI should or should not play inside it.</p>
-            </div>
-
-            <aside class="contact-box">
-              <a class="btn btn-primary" href="mailto:alberto@praxis.co?subject=Discuss%20a%20workflow">Discuss a workflow <span class="arrow">→</span></a>
-              <a class="btn" href="mailto:alberto@praxis.co?subject=Workflow%20assessment">Send one workflow to assess</a>
-              <p>For CFOs, General Counsel, COOs, Heads of Governance, Corporate Affairs leaders, Managing Partners and functional leaders.</p>
-              <a class="email" href="mailto:alberto@praxis.co">alberto@praxis.co</a>
-            </aside>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="container footer-inner">
-        <span>Praxis / AI-exposed workflow redesign</span>
-        <span>πράξις — the transformation of knowledge into operating reality</span>
       </div>
-    </footer>
+    </div>
+  </div>
+</section>
+
+<div class="s-bar" id="shift">
+  <span class="s-bar-num">01</span>
+  <span class="s-bar-title">The Structural Shift</span>
+  <span class="s-bar-right">Where the pressure is already visible</span>
+</div>
+
+<section class="wrap alt">
+  <div class="col-2 fade">
+    <div>
+      <div class="s-label">Diagnosis</div>
+      <h2 class="display display-md">Most organizations are optimizing a model being <em>repriced beneath them.</em></h2>
+    </div>
+    <div class="body-md"><p>AI compresses execution before organizations redesign roles, controls, evidence and accountability around it.</p></div>
   </div>
 
-  <script>
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const items = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+  <div class="signals-grid fade">
+    <div class="signal-card">
+      <span class="sig-n">01</span>
+      <p class="sig-text"><strong>Execution accelerates.</strong> AI compresses drafting, analysis, research and synthesis. The workflow still assumes human-only production.</p>
+    </div>
+    <div class="signal-card">
+      <span class="sig-n">02</span>
+      <p class="sig-text"><strong>Judgment becomes exposed.</strong> Teams need to know where human judgment enters, what it verifies and when it overrides the system.</p>
+    </div>
+    <div class="signal-card">
+      <span class="sig-n">03</span>
+      <p class="sig-text"><strong>Controls lag behind.</strong> Evidence, escalation, audit trail and accountability are added after the fact instead of designed into the flow.</p>
+    </div>
+  </div>
+</section>
 
-    items.forEach(item => {
-      if (reduceMotion) item.classList.add('show');
-      else observer.observe(item);
-    });
-  </script>
+<div class="s-bar" id="stack">
+  <span class="s-bar-num">02</span>
+  <span class="s-bar-title">The Workflow Stack</span>
+  <span class="s-bar-right">What PRAXIS maps in every engagement</span>
+</div>
+
+<div class="stack-section">
+  <div class="stack-axes">
+    <div class="stack-axis"><span class="stack-axis-arrow">↑</span> Automation potential — higher at execution</div>
+    <div class="stack-axis"><span class="stack-axis-arrow">↑</span> Accountability density — higher at context</div>
+  </div>
+
+  <div class="stack-bands fade">
+    <div class="stack-band l04">
+      <div class="sb-num">04</div>
+      <div class="sb-center">
+        <div class="sb-name">Context</div>
+        <p class="sb-desc">The institutional, client, governance or business context that defines what good work means in this specific situation.</p>
+      </div>
+      <div class="sb-right"><div class="sb-badge"><span class="hi">Accountability density ↑</span><span>Highest value</span></div></div>
+    </div>
+    <div class="stack-band l03">
+      <div class="sb-num">03</div>
+      <div class="sb-center">
+        <div class="sb-name">Judgment</div>
+        <p class="sb-desc">Where human interpretation, decision-making and professional accountability remain required.</p>
+      </div>
+      <div class="sb-right"><div class="sb-badge"><span class="hi">Human authority</span><span>Non-delegable</span></div></div>
+    </div>
+    <div class="stack-band l02">
+      <div class="sb-num">02</div>
+      <div class="sb-center">
+        <div class="sb-name">Orchestration</div>
+        <p class="sb-desc">How work moves across humans, AI systems, tools, evidence, controls and escalation paths.</p>
+      </div>
+      <div class="sb-right"><div class="sb-badge"><span class="hi">Operating design</span><span>New competency</span></div></div>
+    </div>
+    <div class="stack-band l01">
+      <div class="sb-num">01</div>
+      <div class="sb-center">
+        <div class="sb-name">Execution</div>
+        <p class="sb-desc">Structured cognitive work that AI may assist, compress or perform under defined constraints.</p>
+      </div>
+      <div class="sb-right"><div class="sb-badge"><span class="hi">Automation potential ↑</span><span>Compressing</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="s-bar" id="method">
+  <span class="s-bar-num">03</span>
+  <span class="s-bar-title">The PRAXIS Method</span>
+  <span class="s-bar-right">MAP → BLUEPRINT → EMBED</span>
+</div>
+
+<section class="wrap">
+  <div class="col-2 fade">
+    <div>
+      <div class="s-label">Methodology</div>
+      <h2 class="display display-md">A sequence. Not an open-ended advisory engagement.</h2>
+    </div>
+    <div class="body-md"><p>MAP is the entry point. BLUEPRINT and EMBED follow only when the workflow evidence is clear.</p></div>
+  </div>
+
+  <div class="method-grid fade">
+    <div class="method-card">
+      <div class="mc-bg" aria-hidden="true">01</div>
+      <div class="mc-head">
+        <span class="mc-phase">Phase 01 · Entry point</span>
+        <div class="mc-name">PRAXIS MAP</div>
+        <p class="mc-tag">Workflow Mapping for one to three AI-exposed workflows.</p>
+      </div>
+      <div class="mc-body">
+        <p>A decision-grade diagnostic of how work moves, where AI enters, and where control must be redesigned.</p>
+        <div class="mc-items">
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Flow Map</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">AI Exposure Map</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Judgment & Control Map</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">90-day redesign roadmap</span></div>
+        </div>
+      </div>
+      <div class="mc-foot">
+        <span class="mc-note">2–4 weeks · 1–3 workflows</span>
+        <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="mc-link">Discuss →</a>
+      </div>
+    </div>
+
+    <div class="method-card featured">
+      <div class="mc-bg" aria-hidden="true">02</div>
+      <div class="mc-head">
+        <span class="mc-phase">Phase 02 · Core redesign</span>
+        <div class="mc-name">PRAXIS BLUEPRINT</div>
+        <p class="mc-tag">Orchestration Design for the target operating workflow.</p>
+      </div>
+      <div class="mc-body">
+        <p>Defines what AI performs, what humans verify, where evidence is required, and whether capability should be bought, configured or built.</p>
+        <div class="mc-items">
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">To-be workflow architecture</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Role and accountability matrix</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Governance and verification framework</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Buy / configure / build logic</span></div>
+        </div>
+      </div>
+      <div class="mc-foot">
+        <span class="mc-note">6–10 weeks · follows MAP</span>
+        <a href="mailto:alberto@praxis.co?subject=BLUEPRINT" class="mc-link">Discuss →</a>
+      </div>
+    </div>
+
+    <div class="method-card">
+      <div class="mc-bg" aria-hidden="true">03</div>
+      <div class="mc-head">
+        <span class="mc-phase">Phase 03 · Selective</span>
+        <div class="mc-name">PRAXIS EMBED</div>
+        <p class="mc-tag">Adoption Support for the redesigned workflow.</p>
+      </div>
+      <div class="mc-body">
+        <p>Turns the redesigned workflow into governance routines, review cadences, decision logs and working behaviour.</p>
+        <div class="mc-items">
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Operating rituals</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Governance routines</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Decision logs and review cadences</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Agent pilot support when required</span></div>
+        </div>
+      </div>
+      <div class="mc-foot">
+        <span class="mc-note">Retainer · selective access</span>
+        <a href="mailto:alberto@praxis.co?subject=EMBED" class="mc-link">Discuss →</a>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="deliverable-lab fade">
+    <div class="deliverable-lab-head">
+      <span>Sample MAP deliverables</span>
+      <em>Visual previews / non-client data</em>
+    </div>
+    <div class="deliverable-grid">
+      <article class="deliverable-card">
+        <div class="dc-top"><span>01</span><strong>As-is Flow Map</strong></div>
+        <div class="mock-flow">
+          <svg viewBox="0 0 190 76" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <marker id="m-arr" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(110,141,255,0.55)"/></marker>
+              <marker id="m-warn" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(255,100,100,0.65)"/></marker>
+            </defs>
+            <line x1="38" y1="36" x2="46" y2="36" stroke="rgba(110,141,255,.5)" stroke-width="1" marker-end="url(#m-arr)"/>
+            <line x1="88" y1="36" x2="96" y2="36" stroke="rgba(255,100,100,.65)" stroke-width="1" stroke-dasharray="2.5 2.5" marker-end="url(#m-warn)"/>
+            <line x1="138" y1="36" x2="146" y2="36" stroke="rgba(110,141,255,.5)" stroke-width="1" marker-end="url(#m-arr)"/>
+            <rect x="2" y="26" width="36" height="20" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
+            <text x="20" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(150,156,175,.8)" letter-spacing=".05em">INT</text>
+            <rect x="52" y="26" width="36" height="20" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
+            <text x="70" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(150,156,175,.8)" letter-spacing=".05em">DRAFT</text>
+            <rect x="102" y="26" width="36" height="20" fill="rgba(110,141,255,.88)" stroke="rgba(110,141,255,.95)" stroke-width=".75"/>
+            <text x="120" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(5,7,17,.95)" letter-spacing=".08em">AI</text>
+            <rect x="152" y="26" width="36" height="20" fill="rgba(7,8,15,.90)" stroke="rgba(255,255,255,.10)" stroke-width=".75"/>
+            <text x="170" y="39.5" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="6.5" fill="rgba(150,156,175,.8)" letter-spacing=".04em">REVIEW</text>
+            <text x="92" y="64" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="7" fill="rgba(255,100,100,.50)" letter-spacing=".06em">unverified</text>
+          </svg>
+        </div>
+      </article>
+      <article class="deliverable-card">
+        <div class="dc-top"><span>02</span><strong>AI Exposure Map</strong></div>
+        <div class="mock-matrix-wrap">
+          <div class="mock-axis-x">Workflow Steps →</div>
+          <div class="mock-matrix">
+            <b></b><b class="on"></b><b class="on"></b><b></b><b></b>
+            <b></b><b></b><b class="on"></b><b class="on"></b><b></b>
+            <b></b><b></b><b class="warn"></b><b class="warn"></b><b class="warn"></b>
+            <b class="on"></b><b class="on"></b><b></b><b></b><b></b>
+          </div>
+          <div class="mock-axis-y">Criteria ↓</div>
+        </div>
+      </article>
+      <article class="deliverable-card">
+        <div class="dc-top"><span>03</span><strong>Judgment & Control Map</strong></div>
+        <div class="mock-controls">
+          <p><em></em> Human review required</p>
+          <p><em class="done"></em> Evidence filed</p>
+          <p><em class="warn"></em> Escalation triggered</p>
+          <p><em></em> Audit log entry</p>
+        </div>
+      </article>
+      <article class="deliverable-card">
+        <div class="dc-top"><span>04</span><strong>90-day Roadmap</strong></div>
+        <div class="mock-timeline">
+          <div class="mock-tl-track">
+            <div class="mock-tl-node done"></div>
+            <div class="mock-tl-line"></div>
+            <div class="mock-tl-node active"></div>
+            <div class="mock-tl-line"></div>
+            <div class="mock-tl-node"></div>
+          </div>
+          <div class="mock-tl-labels">
+            <div class="mock-tl-phase">
+              <div class="mock-tl-range">W1–2</div>
+              <div class="mock-tl-title">MAP</div>
+            </div>
+            <div class="mock-tl-phase">
+              <div class="mock-tl-range">W3–6</div>
+              <div class="mock-tl-title">BLUEPRINT</div>
+            </div>
+            <div class="mock-tl-phase">
+              <div class="mock-tl-range">W7–10</div>
+              <div class="mock-tl-title">EMBED</div>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="agent-note fade">
+    <div class="agent-note-label">Workflow agents</div>
+    <p>Agents are not the starting point. They are a possible implementation layer when the Blueprint shows that a dedicated AI capability is required inside a redesigned workflow.</p>
+  </div>
+</section>
+
+<div class="s-bar" id="usecases">
+  <span class="s-bar-num">04</span>
+  <span class="s-bar-title">Where PRAXIS Is Useful</span>
+  <span class="s-bar-right">Legal · Finance · Professional Services</span>
+</div>
+
+<section class="wrap alt">
+  <h2 class="display display-md fade" style="margin-bottom:48px;">Most relevant where AI enters <em>high-trust work.</em></h2>
+  <div class="use-grid fade">
+    <div class="use-card">
+      <div class="use-domain">Legal · Governance</div>
+      <div class="use-title">Contracts, board materials, regulatory monitoring.</div>
+      <div class="use-issue">Typical issue: faster drafting, unclear verification.</div>
+      <div class="use-clarifies">Praxis clarifies review architecture, escalation logic and audit trail requirements.</div>
+      <div class="use-agent">Agent potential: <span>board pack preparation · review triage</span></div>
+    </div>
+    <div class="use-card">
+      <div class="use-domain">Finance</div>
+      <div class="use-title">Reporting packs, commentary, variance analysis.</div>
+      <div class="use-issue">Typical issue: faster analysis, weaker evidence chain.</div>
+      <div class="use-clarifies">Praxis clarifies approval structure, evidence requirements and control checkpoints.</div>
+      <div class="use-agent">Agent potential: <span>commentary drafting · control checklist</span></div>
+    </div>
+    <div class="use-card">
+      <div class="use-domain">Professional Services</div>
+      <div class="use-title">Research, drafting, client deliverables.</div>
+      <div class="use-issue">Typical issue: disrupted leverage, review and pricing.</div>
+      <div class="use-clarifies">Praxis clarifies work allocation, review points, pricing logic and AI usage rules.</div>
+      <div class="use-agent">Agent potential: <span>intake · research support · review triage</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="s-bar" id="who">
+  <span class="s-bar-num">05</span>
+  <span class="s-bar-title">Who This Is For</span>
+  <span class="s-bar-right">Two contexts · One architecture problem</span>
+</div>
+
+<section class="wrap">
+  <div class="col-2 fade">
+    <div>
+      <div class="s-label">Audience</div>
+      <h2 class="display display-md">Two types of organization. The same structural question.</h2>
+    </div>
+    <div class="body-md">
+      <p>The manifestation differs. The architecture problem is the same.</p>
+    </div>
+  </div>
+
+  <div class="who-grid fade">
+    <div class="who-card">
+      <div class="who-type">Corporate Functions</div>
+      <div class="who-title">Finance, legal, tax, compliance, risk, governance and corporate affairs.</div>
+      <p class="who-text">For functional leaders dealing with AI inside workflows that require evidence, review, accountability and controlled escalation.</p>
+    </div>
+    <div class="who-card">
+      <div class="who-type">Professional Firms</div>
+      <div class="who-title">Legal, tax, accounting, advisory and specialist professional practices.</div>
+      <p class="who-text">For firms where AI changes research, drafting, client deliverables, junior leverage, partner review and pricing logic.</p>
+    </div>
+  </div>
+
+  <div class="buyers fade">
+    <span class="buyers-label">Typical buyer titles</span>
+    <div class="buyers-list">
+      <span class="buyer-tag">CFO</span>
+      <span class="buyer-tag">General Counsel</span>
+      <span class="buyer-tag">COO</span>
+      <span class="buyer-tag">Head of Governance</span>
+      <span class="buyer-tag">Head of Corporate Affairs</span>
+      <span class="buyer-tag">Managing Partner</span>
+      <span class="buyer-tag">Head of Legal</span>
+      <span class="buyer-tag">Head of Finance</span>
+      <span class="buyer-tag">Head of Risk</span>
+    </div>
+  </div>
+</section>
+
+<div class="s-bar" id="field-note">
+  <span class="s-bar-num">06</span>
+  <span class="s-bar-title">Field Note</span>
+  <span class="s-bar-right">The intellectual foundation</span>
+</div>
+
+<section class="field-note">
+  <div class="field-main fade">
+    <div class="s-label">Praxis Field Note No. 01</div>
+    <h2 class="display display-lg">The Workflow Stack</h2>
+    <p class="body-lg" style="max-width:720px;margin-top:24px;">The Praxis Workflow Stack is based on a simple premise: AI does not only compress execution. It changes the relative value of orchestration, judgment and context.</p>
+    <div class="actions" style="margin-top:30px;">
+      <a href="mailto:alberto@praxis.co?subject=Field%20Note%20No.%2001%20%E2%80%94%20The%20Workflow%20Stack" class="btn btn-primary">Request the Field Note →</a>
+      <a href="#stack" class="btn btn-ghost">Review the Stack →</a>
+    </div>
+  </div>
+  <aside class="field-aside fade d1">
+    <div class="field-no">01</div>
+    <div class="field-meta">
+      Execution<br>
+      Orchestration<br>
+      Judgment<br>
+      Context
+    </div>
+  </aside>
+</section>
+
+<div class="s-bar" id="not">
+  <span class="s-bar-num">07</span>
+  <span class="s-bar-title">What This Is Not</span>
+  <span class="s-bar-right">Positioning by exclusion</span>
+</div>
+
+<section class="wrap alt">
+  <div class="fade" style="margin-bottom:48px;">
+    <div class="s-label">Exclusions</div>
+    <h2 class="display display-md">PRAXIS is workflow redesign for high-trust work. Not generic AI adoption.</h2>
+  </div>
+
+  <div class="not-list fade">
+    <div class="not-item">
+      <div class="not-label">Not AI tool implementation</div>
+      <div class="not-text">PRAXIS does not start with a tool. It starts with the workflow — because the right AI role cannot be determined before the work is mapped. Tool selection follows from the Blueprint, not the other way around.</div>
+    </div>
+    <div class="not-item">
+      <div class="not-label">Not agent development by default</div>
+      <div class="not-text">Agents are an output of the Blueprint, not an entry point. PRAXIS does not build agents into workflows that have not been redesigned around them. Where the Blueprint shows a dedicated AI capability is required, agents become a possible implementation layer.</div>
+    </div>
+    <div class="not-item">
+      <div class="not-label">Not adoption without redesign</div>
+      <div class="not-text">Deploying AI into an existing workflow makes a poorly designed process faster. PRAXIS maps the workflow first, then defines where AI belongs inside a redesigned version of it. The sequence is not optional.</div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contact">
+  <div class="cta-main fade">
+    <div>
+      <div class="s-label">Start with the workflow</div>
+      <h2 class="display display-lg">Do not scale AI into a workflow you have not mapped.</h2>
+    </div>
+    <p class="body-lg" style="max-width:680px;">PRAXIS begins with one workflow, its artefacts, decision points, current AI exposure and the role AI should or should not play inside it.</p>
+    <div class="actions">
+      <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="btn btn-primary">Request a MAP diagnostic</a>
+      <a href="mailto:alberto@praxis.co?subject=Workflow%20brief" class="btn btn-ghost">Share a workflow brief →</a>
+    </div>
+  </div>
+  <aside class="cta-aside">
+    <div class="cta-block">
+      <span class="cta-step">01</span>
+      <span class="cta-label">Workflow selected</span>
+    </div>
+    <div class="cta-block">
+      <span class="cta-step">02</span>
+      <span class="cta-label">Artefacts reviewed</span>
+    </div>
+    <div class="cta-block">
+      <span class="cta-step">03</span>
+      <span class="cta-label">MAP scoped</span>
+    </div>
+  </aside>
+</section>
+
+<footer>
+  <div class="footer-left">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="footer-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" role="img">
+            <path d="M7.2 9.4H24.8" class="mark-line"/>
+            <path d="M11.1 9.4L10.2 24.2" class="mark-stem"/>
+            <path d="M20.9 9.4L21.8 24.2" class="mark-stem"/>
+            <circle cx="16" cy="16" r="14.2" class="mark-ring"/>
+          </svg>
+        </span>PRAXIS
+      </div>
+      <p class="footer-desc">AI-exposed workflow redesign</p>
+    </div>
+    <div class="footer-links">
+      <a href="#shift">Shift</a>
+      <a href="#stack">Stack</a>
+      <a href="#method">Method</a>
+      <a href="#usecases">Use cases</a>
+      <a href="#field-note">Field Note</a>
+    </div>
+    <div class="footer-bottom">
+      <a href="mailto:alberto@praxis.co" class="footer-email">alberto@praxis.co</a>
+      <p class="footer-copy">© 2025–2026 PRAXIS</p>
+    </div>
+  </div>
+  <div class="footer-right">
+    <p class="footer-statement">Do not scale AI into a workflow<br>you have not <em>mapped.</em></p>
+    <div class="footer-greek">
+      <strong>πράξις</strong>
+      the transformation of knowledge<br>into operating reality
+    </div>
+  </div>
+</footer>
+
+<script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 18);
+});
+
+const els = document.querySelectorAll('.fade');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+
+els.forEach(el => observer.observe(el));
+</script>
+
 </body>
 </html>
