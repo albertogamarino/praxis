@@ -80,7 +80,7 @@ nav.scrolled {
 }
 .brand-mark svg { width: 21px; height: 21px; }
 .footer-mark svg { width: 18px; height: 18px; }
-.mark-ring, .mark-line, .mark-stem {
+.mark-ring, .mark-line, .mark-stem, .mark-arc {
   fill: none;
   stroke: var(--acc);
   vector-effect: non-scaling-stroke;
@@ -90,13 +90,18 @@ nav.scrolled {
   opacity: .48;
 }
 .mark-line {
-  stroke-width: 1.65;
+  stroke-width: 1.55;
   stroke-linecap: round;
 }
 .mark-stem {
-  stroke-width: 1.55;
+  stroke-width: 1.35;
   stroke-linecap: round;
   opacity: .92;
+}
+.mark-arc {
+  stroke-width: .9;
+  stroke-linecap: round;
+  opacity: .42;
 }
 .nav-links { display: flex; list-style: none; align-items: center; }
 .nav-links a {
@@ -132,7 +137,7 @@ nav.scrolled {
 
 .display { font-family: 'Instrument Serif', serif; font-weight: 400; line-height: 1.04; letter-spacing: -0.025em; color: var(--white); }
 .display em { font-style: italic; color: var(--acc); }
-.display-xl { font-size: clamp(48px, 6.05vw, 90px); }
+.display-xl { font-size: clamp(50px, 6.3vw, 94px); letter-spacing: -0.03em; }
 .display-lg { font-size: clamp(32px, 3.8vw, 52px); }
 .display-md { font-size: clamp(24px, 2.7vw, 36px); }
 
@@ -161,7 +166,7 @@ nav.scrolled {
   position: absolute; right: -3%; bottom: -14%;
   font-family: 'Instrument Serif', serif; font-style: italic;
   font-size: clamp(300px, 44vw, 680px); line-height: 0.82;
-  color: var(--acc); opacity: 0.024;
+  color: var(--acc); opacity: 0.038;
   pointer-events: none; user-select: none; z-index: 0; letter-spacing: -0.04em;
 }
 .hero-main { flex: 1; display: grid; grid-template-columns: 1fr 340px; border-bottom: 1px solid var(--line); position: relative; z-index: 1; }
@@ -439,10 +444,13 @@ nav.scrolled {
   min-height: 210px;
   border-right: 1px solid var(--line);
   padding: 18px;
-  background: rgba(7,8,15,.38);
+  background: rgba(7,8,15,.50);
   position: relative;
   overflow: hidden;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  transition: background 0.2s;
 }
+.deliverable-card:hover { background: rgba(14,17,34,.70); }
 .deliverable-card:last-child { border-right: none; }
 .dc-top {
   height: 42px;
@@ -791,7 +799,7 @@ nav.scrolled {
 
 /* CTA */
 .cta-section { display: grid; grid-template-columns: 1fr 320px; border-bottom: 1px solid var(--line); }
-.cta-main { padding: 96px 80px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 30px; background: radial-gradient(circle at 8% 92%, rgba(110,141,255,0.05), transparent 32rem); }
+.cta-main { padding: 96px 80px; border-right: 1px solid var(--line); display: flex; flex-direction: column; gap: 30px; background: radial-gradient(circle at 8% 92%, rgba(110,141,255,0.08), transparent 32rem); }
 .cta-aside { display: flex; flex-direction: column; }
 .cta-block { flex: 1; padding: 30px 36px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; gap: 12px; }
 .cta-block:last-child { border-bottom: none; }
@@ -833,11 +841,11 @@ footer {
 .footer-statement {
   font-family: 'Instrument Serif', serif;
   font-style: italic;
-  font-size: clamp(22px, 2.4vw, 32px);
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: clamp(26px, 2.9vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -0.025em;
   color: var(--white);
-  opacity: 0.72;
+  opacity: 0.82;
 }
 .footer-statement em {
   color: var(--acc);
@@ -879,39 +887,116 @@ footer {
 ::-webkit-scrollbar-thumb:hover { background: rgba(110,141,255,0.40); }
 
 /* MAP ADDITIONS */
-.mock-matrix-wrap { display: flex; flex-direction: column; gap: 5px; }
-.mock-axis-x { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-dim); }
-.mock-axis-y { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text-dim); text-align: right; }
-.mock-controls em.done { background: rgba(110,141,255,0.55); }
-.mock-controls em.warn { background: rgba(255,100,100,0.50); border-color: rgba(255,100,100,0.75); }
-.mock-timeline { display: flex; flex-direction: column; gap: 12px; padding-top: 2px; }
-.mock-tl-track { display: flex; align-items: center; padding: 0 6px; }
-.mock-tl-node { width: 8px; height: 8px; border-radius: 50%; border: 1px solid rgba(110,141,255,0.45); background: transparent; flex-shrink: 0; }
-.mock-tl-node.done { background: rgba(110,141,255,0.65); border-color: rgba(110,141,255,0.85); }
-.mock-tl-node.active { background: rgba(110,141,255,0.25); border-color: rgba(110,141,255,0.70); }
-.mock-tl-line { flex: 1; height: 1px; background: rgba(110,141,255,0.18); }
-.mock-tl-labels { display: grid; grid-template-columns: repeat(3,1fr); }
-.mock-tl-phase { padding: 0 4px; }
-.mock-tl-range { font-family: 'JetBrains Mono', monospace; font-size: 7.5px; color: var(--text-dim); letter-spacing: 0.08em; margin-bottom: 3px; }
-.mock-tl-title { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--acc); letter-spacing: 0.06em; font-weight: 500; }
 
-/* TICKER */
-.ticker { height: 40px; border-bottom: 1px solid var(--line); background: var(--bg-1); overflow: hidden; display: flex; align-items: center; position: relative; z-index: 1; }
-.ticker::before, .ticker::after { content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2; pointer-events: none; }
-.ticker::before { left: 0; background: linear-gradient(90deg, var(--bg-1), transparent); }
-.ticker::after  { right: 0; background: linear-gradient(-90deg, var(--bg-1), transparent); }
-.ticker-track { display: flex; align-items: center; animation: ticker-scroll 40s linear infinite; white-space: nowrap; }
-.t-item { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim); padding: 0 22px; white-space: nowrap; }
-.t-item.a { color: var(--acc); }
-.t-item.s { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 13px; letter-spacing: 0; color: var(--acc); text-transform: none; }
-.t-sep { color: var(--text-dim); padding: 0 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
-@keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-/* MAP FINDINGS */
-.map-findings { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); position: relative; z-index: 1; }
-.finding-item { padding: 44px 52px; background: var(--bg-1); display: flex; flex-direction: column; gap: 16px; }
+/* SYMPTOMS */
+.symptoms-section {
+  padding: 52px 80px 48px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.36fr) 1fr;
+  column-gap: 64px;
+  align-items: start;
+}
+.symp-head {
+  margin-bottom: 0;
+  padding-top: 2px;
+}
+.symp-title {
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 38px);
+  color: var(--white);
+  letter-spacing: -0.03em;
+  line-height: 1.04;
+  max-width: 360px;
+}
+.symp-sub {
+  margin-top: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  max-width: 260px;
+  line-height: 1.7;
+}
+.symp-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.symp-card {
+  padding: 24px 26px 22px;
+  min-height: 118px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: background 0.2s;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+}
+.symp-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--acc);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.35s ease;
+}
+.symp-card:hover::before { transform: scaleY(1); }
+.symp-card:hover { background: var(--bg-2); }
+.symp-card-title {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--white);
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+.symp-card-text {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--text-mid);
+  line-height: 1.55;
+  margin-top: 10px;
+  max-width: 280px;
+}
+.symp-close {
+  grid-column: 2;
+  margin-top: 18px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* MAP FINDINGS COMPACT */
+.map-findings { display: flex; flex-direction: column; border-bottom: 1px solid var(--line); position: relative; z-index: 1; background: var(--bg-1); }
+.finding-item { display: grid; grid-template-columns: 200px 1fr; align-items: center; gap: 48px; padding: 20px 80px; border-bottom: 1px solid var(--line); }
+.finding-item:last-child { border-bottom: none; }
 .finding-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--acc); opacity: 0.7; }
-.finding-text { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 300; font-size: 14px; color: var(--text); line-height: 1.75; letter-spacing: -0.01em; }
+.finding-text { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 14px; color: var(--text); line-height: 1.6; letter-spacing: -0.01em; }
+
+/* ACCORDION */
+.mc-expand-btn { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; border-top: 1px solid var(--line); padding: 14px 0 0; margin-top: 18px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--acc); transition: opacity 0.2s; }
+.mc-expand-btn:hover { opacity: 0.7; }
+.mc-expand-icon { transition: transform 0.32s cubic-bezier(0.4,0,0.2,1); display: inline-block; line-height: 1; }
+.mc-expand-btn.open .mc-expand-icon { transform: rotate(180deg); }
+.mc-expandable { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1); }
+.mc-expandable.open { max-height: 500px; }
 
 /* RESPONSIVE */
 @media (max-width: 1100px) {
@@ -927,8 +1012,19 @@ footer {
   .hero-right { display: flex; }
   .hero-phase-row { grid-template-columns: repeat(3, 1fr); }
   .hero-phase { border-bottom: none; }
-  .map-findings { grid-template-columns: 1fr; }
-  .finding-item { padding: 36px 24px; }
+  .symptoms-section {
+    padding: 44px 24px 38px;
+    grid-template-columns: 1fr;
+    row-gap: 28px;
+  }
+  .symp-head { margin-bottom: 0; }
+  .symp-title { max-width: 520px; }
+  .symp-sub { margin-top: 10px; max-width: none; }
+  .symp-grid { grid-template-columns: 1fr; }
+  .symp-card { min-height: auto; padding: 20px 20px; }
+  .symp-close { grid-column: 1; margin-top: 14px; }
+  .map-findings { display: flex; flex-direction: column; }
+  .finding-item { grid-template-columns: 1fr; gap: 8px; padding: 18px 40px; }
   .signals-grid { grid-template-columns: 1fr; }
   .use-grid { grid-template-columns: 1fr; }
   .who-grid { grid-template-columns: 1fr; }
@@ -991,10 +1087,11 @@ footer {
 <nav id="nav">
   <a href="#top" class="nav-brand"><span class="brand-mark" aria-hidden="true">
   <svg viewBox="0 0 32 32">
-    <path d="M7.2 9.4H24.8" class="mark-line"/>
-    <path d="M11.1 9.4L10.2 24.2" class="mark-stem"/>
-    <path d="M20.9 9.4L21.8 24.2" class="mark-stem"/>
-    <circle cx="16" cy="16" r="14.2" class="mark-ring"/>
+    <path d="M16 2.8A13.2 13.2 0 0 1 29.2 16A13.2 13.2 0 0 1 16 29.2A13.2 13.2 0 0 1 2.8 16A13.2 13.2 0 0 1 16 2.8Z" class="mark-ring"/>
+    <path d="M8.6 10.2H23.4" class="mark-line"/>
+    <path d="M11.6 10.2C11.6 14.8 11.1 19.2 10.1 23.4" class="mark-stem"/>
+    <path d="M20.4 10.2C20.4 14.8 20.9 19.2 21.9 23.4" class="mark-stem"/>
+    <path d="M12.2 10.2C14.1 12.5 17.9 12.5 19.8 10.2" class="mark-arc"/>
   </svg>
 </span>PRAXIS</a>
   <ul class="nav-links">
@@ -1021,7 +1118,7 @@ footer {
         </h1>
       </div>
       <div class="fade d1">
-        <p class="hero-sub">PRAXIS maps the workflows where AI is entering your organization — reporting, review, compliance, legal output — and redesigns the control structure around them.</p>
+        <p class="hero-sub">PRAXIS maps the workflows where AI is entering your organization — reporting, review, compliance, legal work — and redesigns the control structure around them.</p>
         <p class="hero-meta" style="margin-bottom:20px;margin-top:0;color:var(--text-mid);">Start with one workflow — its artefacts, decision points, current AI exposure and accountability structure.</p>
         <div class="actions">
           <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="btn btn-primary">Request a MAP diagnostic</a>
@@ -1106,31 +1203,30 @@ footer {
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span class="t-item a">PRAXIS MAP</span><span class="t-sep">—</span>
-    <span class="t-item">Workflow Mapping</span><span class="t-sep">—</span>
-    <span class="t-item a">PRAXIS BLUEPRINT</span><span class="t-sep">—</span>
-    <span class="t-item">Orchestration Design</span><span class="t-sep">—</span>
-    <span class="t-item a">PRAXIS EMBED</span><span class="t-sep">—</span>
-    <span class="t-item">Adoption Support</span><span class="t-sep">—</span>
-    <span class="t-item">Finance</span><span class="t-sep">·</span>
-    <span class="t-item">Legal</span><span class="t-sep">·</span>
-    <span class="t-item">Compliance</span><span class="t-sep">·</span>
-    <span class="t-item">Governance</span><span class="t-sep">—</span>
-    <span class="t-item s">πράξις</span><span class="t-sep">—</span>
-    <span class="t-item a">PRAXIS MAP</span><span class="t-sep">—</span>
-    <span class="t-item">Workflow Mapping</span><span class="t-sep">—</span>
-    <span class="t-item a">PRAXIS BLUEPRINT</span><span class="t-sep">—</span>
-    <span class="t-item">Orchestration Design</span><span class="t-sep">—</span>
-    <span class="t-item a">PRAXIS EMBED</span><span class="t-sep">—</span>
-    <span class="t-item">Adoption Support</span><span class="t-sep">—</span>
-    <span class="t-item">Finance</span><span class="t-sep">·</span>
-    <span class="t-item">Legal</span><span class="t-sep">·</span>
-    <span class="t-item">Compliance</span><span class="t-sep">·</span>
-    <span class="t-item">Governance</span><span class="t-sep">—</span>
-    <span class="t-item s">πράξις</span><span class="t-sep">—</span>
+<div class="symptoms-section" id="symptoms">
+  <div class="symp-head fade">
+    <div class="symp-title">AI exposes the workflow before anyone names it.</div>
+    <div class="symp-sub">Four signals usually appear first.</div>
   </div>
+  <div class="symp-grid fade">
+    <div class="symp-card">
+      <div class="symp-card-title">AI without governance</div>
+      <p class="symp-card-text">Outputs move before standards exist.</p>
+    </div>
+    <div class="symp-card">
+      <div class="symp-card-title">Review under pressure</div>
+      <p class="symp-card-text">Speed increases; verification does not.</p>
+    </div>
+    <div class="symp-card">
+      <div class="symp-card-title">Senior control layer</div>
+      <p class="symp-card-text">Judgment becomes an informal bottleneck.</p>
+    </div>
+    <div class="symp-card">
+      <div class="symp-card-title">Agents without architecture</div>
+      <p class="symp-card-text">Automation ambition has no workflow boundary.</p>
+    </div>
+  </div>
+  <p class="symp-close fade">PRAXIS maps the workflow underneath.</p>
 </div>
 
 <div class="s-bar" id="shift">
@@ -1145,21 +1241,21 @@ footer {
       <div class="s-label">Diagnosis</div>
       <h2 class="display display-md">Most organizations are optimizing a model being <em>repriced beneath them.</em></h2>
     </div>
-    <div class="body-md"><p>AI compresses execution before organizations redesign roles, controls, evidence and accountability around it.</p><p style="margin-top:14px;">High performers are nearly 3× more likely to have fundamentally redesigned workflows. McKinsey identifies this as the single strongest predictor of EBIT impact from AI — stronger than tool selection, talent, or investment level. Most organizations haven't done it.</p></div>
+    <div class="body-md"><p>AI compresses execution faster than organizations redesign roles, controls and accountability.</p></div>
   </div>
 
   <div class="signals-grid fade">
     <div class="signal-card">
       <span class="sig-n">01</span>
-      <p class="sig-text"><strong>Execution accelerates.</strong> AI compresses drafting, analysis, research and synthesis. The workflow still assumes human-only production.</p>
+      <p class="sig-text"><strong>Execution accelerates.</strong> AI compresses drafting, analysis and synthesis. The workflow still assumes human-only production.</p>
     </div>
     <div class="signal-card">
       <span class="sig-n">02</span>
-      <p class="sig-text"><strong>Judgment becomes exposed.</strong> Teams need to know where human judgment enters, what it verifies and when it overrides the system.</p>
+      <p class="sig-text"><strong>Judgment becomes exposed.</strong> Where human judgment enters, what it verifies and when it overrides the system — undefined.</p>
     </div>
     <div class="signal-card">
       <span class="sig-n">03</span>
-      <p class="sig-text"><strong>Controls lag behind.</strong> Evidence, escalation, audit trail and accountability are added after the fact instead of designed into the flow.</p>
+      <p class="sig-text"><strong>Controls lag behind.</strong> Evidence, escalation and accountability are added after the fact instead of designed into the flow.</p>
     </div>
   </div>
 </section>
@@ -1237,12 +1333,18 @@ footer {
       </div>
       <div class="mc-body">
         <p>A decision-grade diagnostic of how work moves, where AI enters, and where control must be redesigned.</p>
-        <div class="mc-items">
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Flow Map</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">AI Exposure Map</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Judgment & Control Map</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">AI Acceptable Use Policy</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">90-day redesign roadmap</span></div>
+        <button class="mc-expand-btn" aria-expanded="false">
+          <span class="mc-expand-label">View deliverables</span>
+          <span class="mc-expand-icon">↓</span>
+        </button>
+        <div class="mc-expandable">
+          <div class="mc-items" style="margin-top:14px;">
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Flow Map</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">AI Exposure Map</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Judgment & Control Map</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">AI Acceptable Use Policy</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">90-day redesign roadmap</span></div>
+          </div>
         </div>
       </div>
       <div class="mc-foot">
@@ -1260,11 +1362,17 @@ footer {
       </div>
       <div class="mc-body">
         <p>Defines what AI performs at each workflow step, where humans remain above the loop for judgment and accountability, what evidence is required, and whether capability should be bought, configured or built.</p>
-        <div class="mc-items">
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">To-be workflow architecture</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Role and accountability matrix</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Governance and verification framework</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Buy / configure / build logic</span></div>
+        <button class="mc-expand-btn" aria-expanded="false">
+          <span class="mc-expand-label">View deliverables</span>
+          <span class="mc-expand-icon">↓</span>
+        </button>
+        <div class="mc-expandable">
+          <div class="mc-items" style="margin-top:14px;">
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">To-be workflow architecture</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Role and accountability matrix</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Governance and verification framework</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Buy / configure / build logic</span></div>
+          </div>
         </div>
       </div>
       <div class="mc-foot">
@@ -1282,11 +1390,17 @@ footer {
       </div>
       <div class="mc-body">
         <p>Turns the redesigned workflow into governance routines, review cadences, decision logs and changed operating practice.</p>
-        <div class="mc-items">
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Operating rituals</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Governance routines</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Decision logs and review cadences</span></div>
-          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Agent pilot support when required</span></div>
+        <button class="mc-expand-btn" aria-expanded="false">
+          <span class="mc-expand-label">View deliverables</span>
+          <span class="mc-expand-icon">↓</span>
+        </button>
+        <div class="mc-expandable">
+          <div class="mc-items" style="margin-top:14px;">
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Operating rituals</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Governance routines</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Decision logs and review cadences</span></div>
+            <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Agent pilot support when required</span></div>
+          </div>
         </div>
       </div>
       <div class="mc-foot">
@@ -1441,11 +1555,11 @@ footer {
 <div class="map-findings">
   <div class="finding-item fade">
     <span class="finding-label">Typical MAP finding / 01</span>
-    <p class="finding-text">"Most organizations that begin a MAP engagement believing their primary exposure is in execution speed discover that the more critical gap is in the handoff from AI output to human review — no defined verification criteria, no escalation logic, no audit trail."</p>
+    <p class="finding-text">"The critical gap is rarely in execution speed — it is in the handoff from AI output to human review."</p>
   </div>
   <div class="finding-item fade d1">
     <span class="finding-label">Typical MAP finding / 02</span>
-    <p class="finding-text">"The gap between what AI is performing inside workflows and what governance structures formally acknowledge it is performing is consistently wider than expected. Organizations are more exposed than they believe — not because AI is being used, but because it is being used without redesigned controls."</p>
+    <p class="finding-text">"Organizations are more exposed than they believe — not because AI is being used, but because it is being used without designed controls."</p>
   </div>
 </div>
 
@@ -1647,8 +1761,8 @@ footer {
   <div class="footer-right">
     <p class="footer-statement">Do not scale AI into a workflow<br>you have not <em>mapped.</em></p>
     <div class="footer-greek">
-      <strong>πράξις</strong>
-      the transformation of knowledge<br>into operating reality
+      <strong>π</strong>
+      knowledge made operational
     </div>
   </div>
 </footer>
@@ -1676,6 +1790,18 @@ setTimeout(() => {
     if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('show');
   });
 }, 80);
+
+document.querySelectorAll('.mc-expand-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const expandable = btn.nextElementSibling;
+    const label = btn.querySelector('.mc-expand-label');
+    const isOpen = expandable.classList.contains('open');
+    btn.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    label.textContent = isOpen ? 'View deliverables' : 'Hide deliverables';
+    expandable.classList.toggle('open');
+  });
+});
 </script>
 
 </body>
