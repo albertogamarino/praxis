@@ -477,6 +477,7 @@ nav.scrolled {
 
 .mock-flow-exec {
   display: block;
+  height: 140px;
   min-height: 112px;
 }
 
@@ -906,6 +907,12 @@ footer {
 .t-sep { color: var(--text-dim); padding: 0 4px; font-family: 'JetBrains Mono', monospace; font-size: 10px; }
 @keyframes ticker-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
+/* MAP FINDINGS */
+.map-findings { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); position: relative; z-index: 1; }
+.finding-item { padding: 44px 52px; background: var(--bg-1); display: flex; flex-direction: column; gap: 16px; }
+.finding-label { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--acc); opacity: 0.7; }
+.finding-text { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 300; font-size: 14px; color: var(--text); line-height: 1.75; letter-spacing: -0.01em; }
+
 /* RESPONSIVE */
 @media (max-width: 1100px) {
   .col-2 { grid-template-columns: 1fr; gap: 40px; }
@@ -920,6 +927,8 @@ footer {
   .hero-right { display: flex; }
   .hero-phase-row { grid-template-columns: repeat(3, 1fr); }
   .hero-phase { border-bottom: none; }
+  .map-findings { grid-template-columns: 1fr; }
+  .finding-item { padding: 36px 24px; }
   .signals-grid { grid-template-columns: 1fr; }
   .use-grid { grid-template-columns: 1fr; }
   .who-grid { grid-template-columns: 1fr; }
@@ -995,7 +1004,7 @@ footer {
     <li><a href="#usecases">Use cases</a></li>
     <li><a href="#field-note">Field Note</a></li>
   </ul>
-  <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="nav-cta">Request a MAP diagnostic →</a>
+  <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="nav-cta" aria-label="Request a MAP diagnostic">Request a MAP diagnostic →</a>
 </nav>
 
 <section id="top" class="hero">
@@ -1012,12 +1021,12 @@ footer {
         </h1>
       </div>
       <div class="fade d1">
-        <p class="hero-sub">PRAXIS maps AI-exposed workflows, redesigns roles and controls, and defines the right AI role inside the operating model.</p>
+        <p class="hero-sub">PRAXIS maps the workflows where AI is entering your organization — reporting, review, compliance, legal output — and redesigns the control structure around them.</p>
+        <p class="hero-meta" style="margin-bottom:20px;margin-top:0;color:var(--text-mid);">Start with one workflow — its artefacts, decision points, current AI exposure and accountability structure.</p>
         <div class="actions">
           <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="btn btn-primary">Request a MAP diagnostic</a>
           <a href="#stack" class="btn btn-ghost">Explore the Stack →</a>
         </div>
-        <p class="hero-meta">Start with one workflow — its artefacts, decision points, current AI exposure and accountability structure.</p>
       </div>
     </div>
 
@@ -1025,7 +1034,7 @@ footer {
       <div class="hero-system">
         <div class="system-head">
           <span>MAP Output Preview</span>
-          <em>Sample / 01</em>
+          <em>What a MAP engagement produces</em>
         </div>
 
         <div class="artifact-preview">
@@ -1136,7 +1145,7 @@ footer {
       <div class="s-label">Diagnosis</div>
       <h2 class="display display-md">Most organizations are optimizing a model being <em>repriced beneath them.</em></h2>
     </div>
-    <div class="body-md"><p>AI compresses execution before organizations redesign roles, controls, evidence and accountability around it.</p></div>
+    <div class="body-md"><p>AI compresses execution before organizations redesign roles, controls, evidence and accountability around it.</p><p style="margin-top:14px;">High performers are nearly 3× more likely to have fundamentally redesigned workflows. McKinsey identifies this as the single strongest predictor of EBIT impact from AI — stronger than tool selection, talent, or investment level. Most organizations haven't done it.</p></div>
   </div>
 
   <div class="signals-grid fade">
@@ -1188,7 +1197,7 @@ footer {
       <div class="sb-num">02</div>
       <div class="sb-center">
         <div class="sb-name">Orchestration</div>
-        <p class="sb-desc">How work moves across humans, AI systems, tools, evidence, controls and escalation paths.</p>
+        <p class="sb-desc">How work moves across humans and AI systems — defining what AI performs, what humans verify, and where humans remain above the loop with final accountability. The most underbuilt layer in almost every organization adopting AI.</p>
       </div>
       <div class="sb-right"><div class="sb-badge"><span class="hi">Operating design</span><span>New competency</span></div></div>
     </div>
@@ -1215,7 +1224,7 @@ footer {
       <div class="s-label">Methodology</div>
       <h2 class="display display-md">A sequence. Not an open-ended advisory engagement.</h2>
     </div>
-    <div class="body-md"><p>MAP is the entry point. BLUEPRINT and EMBED follow only when the workflow evidence is clear.</p></div>
+    <div class="body-md"><p>MAP is the entry point. BLUEPRINT and EMBED follow only when the workflow evidence is clear.</p><p style="margin-top:12px;">PRAXIS maps these four layers across your specific workflow — making visible what AI is performing, where controls are missing, and where judgment cannot be delegated.</p></div>
   </div>
 
   <div class="method-grid fade">
@@ -1232,6 +1241,7 @@ footer {
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Flow Map</span></div>
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">AI Exposure Map</span></div>
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Judgment & Control Map</span></div>
+          <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">AI Acceptable Use Policy</span></div>
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">90-day redesign roadmap</span></div>
         </div>
       </div>
@@ -1249,7 +1259,7 @@ footer {
         <p class="mc-tag">Orchestration Design for the target operating workflow.</p>
       </div>
       <div class="mc-body">
-        <p>Defines what AI performs, what humans verify, where evidence is required, and whether capability should be bought, configured or built.</p>
+        <p>Defines what AI performs at each workflow step, where humans remain above the loop for judgment and accountability, what evidence is required, and whether capability should be bought, configured or built.</p>
         <div class="mc-items">
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">To-be workflow architecture</span></div>
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Role and accountability matrix</span></div>
@@ -1271,7 +1281,7 @@ footer {
         <p class="mc-tag">Adoption Support for the redesigned workflow.</p>
       </div>
       <div class="mc-body">
-        <p>Turns the redesigned workflow into governance routines, review cadences, decision logs and working behaviour.</p>
+        <p>Turns the redesigned workflow into governance routines, review cadences, decision logs and changed operating practice.</p>
         <div class="mc-items">
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Operating rituals</span></div>
           <div class="mc-item"><div class="mc-dot"></div><span class="mc-item-text">Governance routines</span></div>
@@ -1296,7 +1306,7 @@ footer {
       <article class="deliverable-card">
         <div class="dc-top"><span>01</span><strong>As-is Flow Map</strong></div>
         <div class="mock-flow-exec">
-          <svg viewBox="0 0 280 125" width="100%" height="100%" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 280 125" width="100%" height="140" style="display:block;" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <marker id="sl-arr" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(110,141,255,0.55)"/></marker>
               <marker id="sl-warn" viewBox="0 0 7 6" refX="6" refY="3" markerWidth="4" markerHeight="4" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="rgba(255,100,100,0.65)"/></marker>
@@ -1424,9 +1434,20 @@ footer {
 
   <div class="agent-note fade">
     <div class="agent-note-label">Workflow agents</div>
-    <p>Agents are not the starting point. They are a possible implementation layer when the Blueprint shows that a dedicated AI capability is required inside a redesigned workflow.</p>
+    <p>A possible implementation layer when the Blueprint shows that a dedicated AI capability is required. Not the starting point.</p>
   </div>
 </section>
+
+<div class="map-findings">
+  <div class="finding-item fade">
+    <span class="finding-label">Typical MAP finding / 01</span>
+    <p class="finding-text">"Most organizations that begin a MAP engagement believing their primary exposure is in execution speed discover that the more critical gap is in the handoff from AI output to human review — no defined verification criteria, no escalation logic, no audit trail."</p>
+  </div>
+  <div class="finding-item fade d1">
+    <span class="finding-label">Typical MAP finding / 02</span>
+    <p class="finding-text">"The gap between what AI is performing inside workflows and what governance structures formally acknowledge it is performing is consistently wider than expected. Organizations are more exposed than they believe — not because AI is being used, but because it is being used without redesigned controls."</p>
+  </div>
+</div>
 
 <div class="s-bar" id="usecases">
   <span class="s-bar-num">04</span>
@@ -1518,7 +1539,7 @@ footer {
   <div class="field-main fade">
     <div class="s-label">Praxis Field Note No. 01</div>
     <h2 class="display display-lg">The Workflow Stack</h2>
-    <p class="body-lg" style="max-width:720px;margin-top:24px;">The Praxis Workflow Stack is based on a simple premise: AI does not only compress execution. It changes the relative value of orchestration, judgment and context.</p>
+    <p class="body-lg" style="max-width:720px;margin-top:24px;">Beneath tasks is a structure — a set of layers that defines how professional work is organized and where its value actually lives. AI changes the economics of each layer. The model does not change which ones matter.</p>
     <div class="actions" style="margin-top:30px;">
       <a href="mailto:alberto@praxis.co?subject=Field%20Note%20No.%2001%20%E2%80%94%20The%20Workflow%20Stack" class="btn btn-primary">Request the Field Note →</a>
       <a href="#stack" class="btn btn-ghost">Review the Stack →</a>
@@ -1554,7 +1575,7 @@ footer {
     </div>
     <div class="not-item">
       <div class="not-label">Not agent development by default</div>
-      <div class="not-text">Agents are an output of the Blueprint, not an entry point. PRAXIS does not build agents into workflows that have not been redesigned around them.</div>
+      <div class="not-text">Agents are an output of the Blueprint, not an entry point. PRAXIS does not build agents into workflows that have not been redesigned around them. An agent deployed into an unredesigned workflow inherits every control gap already in it.</div>
     </div>
     <div class="not-item">
       <div class="not-label">Not adoption without redesign</div>
@@ -1576,8 +1597,9 @@ footer {
     <p class="body-lg" style="max-width:680px;">PRAXIS begins with one workflow, its artefacts, decision points, current AI exposure and the role AI should or should not play inside it.</p>
     <div class="actions">
       <a href="mailto:alberto@praxis.co?subject=Request%20a%20MAP%20diagnostic" class="btn btn-primary">Request a MAP diagnostic</a>
-      <a href="mailto:alberto@praxis.co?subject=Workflow%20brief" class="btn btn-ghost">Share a workflow brief →</a>
+      <a href="mailto:alberto@praxis.co?subject=Workflow%20brief" class="btn btn-ghost">Send a workflow overview →</a>
     </div>
+    <p style="margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:0.04em;line-height:1.8;">Or send a one-page description of the workflow, its current state, and where AI is entering: <a href="mailto:alberto@praxis.co" style="color:var(--acc);text-decoration:none;">alberto@praxis.co</a></p>
   </div>
   <aside class="cta-aside">
     <div class="cta-block">
@@ -1635,7 +1657,7 @@ footer {
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 18);
-});
+}, { passive: true });
 
 const els = document.querySelectorAll('.fade');
 const observer = new IntersectionObserver((entries) => {
@@ -1645,9 +1667,15 @@ const observer = new IntersectionObserver((entries) => {
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -4% 0px' });
+}, { threshold: 0.06, rootMargin: '0px 0px -4% 0px' });
 
 els.forEach(el => observer.observe(el));
+
+setTimeout(() => {
+  document.querySelectorAll('.fade:not(.show)').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('show');
+  });
+}, 80);
 </script>
 
 </body>
